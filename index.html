@@ -6,7 +6,7 @@
 <title>Priya's Learning Corner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #f2ead9;
@@ -20,18 +20,25 @@
     --orange: #e8734a;
     --green: #1f8a55;
     --red: #c0392b;
+    --yellow: #ffc84a;
+    --sky: #4fb3e0;
+    --pink: #ef6fa0;
     color-scheme: light;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; min-height: 100%; }
+  html, body { margin: 0; min-height: 100%; overflow-x: hidden; }
   body {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--cream);
     color: var(--ink);
     min-height: 100vh;
   }
-  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; font-weight: 600; margin: 0; }
-  em { font-style: italic; color: var(--teal); font-family: "Fraunces", Georgia, serif; font-weight: 500; }
+  h1, h2, h3 { font-family: "Fredoka", sans-serif; font-weight: 600; margin: 0; }
+  em {
+    font-style: normal; color: var(--pink); font-family: "Fredoka", sans-serif; font-weight: 600;
+    text-decoration: underline; text-decoration-style: wavy; text-decoration-color: var(--yellow);
+    text-underline-offset: 4px;
+  }
 
   /* Header */
   header.site {
@@ -45,12 +52,12 @@
   }
   .brand { display: flex; align-items: center; gap: 0.6rem; }
   .brand .mark {
-    width: 34px; height: 34px; border-radius: 9px;
-    background: var(--teal); color: #fff;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--sky)); color: #fff;
     display: flex; align-items: center; justify-content: center;
-    font-family: "Fraunces", serif; font-weight: 600; font-size: 1.05rem;
+    font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.1rem;
   }
-  .brand .word { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; }
+  .brand .word { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.15rem; }
   nav.site { display: flex; gap: 1.6rem; }
   nav.site a {
     font-size: 0.92rem; font-weight: 500; color: var(--muted);
@@ -67,17 +74,32 @@
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
   /* Hero */
+  .hero-wrap { position: relative; padding-top: 3rem; }
   .eyebrow {
     text-align: center; text-transform: uppercase; letter-spacing: 0.12em;
-    font-size: 0.78rem; font-weight: 600; color: var(--teal); margin-top: 3rem;
+    font-size: 0.78rem; font-weight: 600; color: var(--teal);
   }
-  .hero h1 {
-    text-align: center; font-size: clamp(2rem, 5.5vw, 3.2rem); line-height: 1.15;
-    margin: 0.7rem auto 0; max-width: 42rem;
+  .hero-title {
+    text-align: center; font-size: clamp(2rem, 5.5vw, 3.2rem); line-height: 1.2;
+    margin: 0.7rem auto 0; max-width: 42rem; position: relative; z-index: 1;
   }
-  .hero p.sub {
+  .hero-sub {
     text-align: center; color: var(--muted); font-size: 1.08rem;
     max-width: 34rem; margin: 1.1rem auto 0;
+  }
+  .doodle {
+    position: absolute; font-size: 1.8rem; opacity: 0.9;
+    animation: floaty 4s ease-in-out infinite;
+    pointer-events: none; user-select: none;
+  }
+  .doodle.d1 { top: -10px; left: 8%; animation-delay: 0s; }
+  .doodle.d2 { top: 10px; right: 10%; font-size: 1.4rem; animation-delay: 0.6s; }
+  .doodle.d3 { bottom: -10px; left: 20%; font-size: 1.3rem; animation-delay: 1.2s; }
+  .doodle.d4 { bottom: 0; right: 20%; animation-delay: 1.8s; }
+  @media (max-width: 640px) { .doodle { display: none; } }
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(8deg); }
   }
 
   /* Steps */
@@ -129,7 +151,7 @@
   .mock-tile .icon { display: block; font-size: 1.5rem; margin-bottom: 0.3rem; }
 
   .mock-problem { text-align: center; }
-  .mock-problem .expr { font-family: "Fraunces", serif; font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .mock-problem .expr { font-family: "Fredoka", sans-serif; font-size: 1.8rem; margin-bottom: 0.8rem; }
   .mock-answer {
     display: inline-flex; align-items: center; gap: 0.5rem;
     background: var(--cream); border-radius: 10px; padding: 0.5rem 0.9rem;
@@ -140,7 +162,7 @@
   .mock-stats { display: flex; gap: 0.7rem; }
   .mock-stat { flex: 1; background: var(--cream); border-radius: 10px; padding: 0.8rem; text-align: center; }
   .mock-stat.hi { background: var(--teal-tint); }
-  .mock-stat .num { font-family: "Fraunces", serif; font-size: 1.3rem; color: var(--teal-dark); }
+  .mock-stat .num { font-family: "Fredoka", sans-serif; font-size: 1.3rem; color: var(--teal-dark); }
   .mock-stat .lbl { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
 
   /* CTA band */
@@ -155,7 +177,10 @@
     border: none; background: #fdf8ee; color: var(--teal-dark);
     padding: 0.85rem 1.6rem; border-radius: 999px; font-weight: 700;
     font-size: 1rem; cursor: pointer; white-space: nowrap;
+    transition: transform 0.15s ease;
   }
+  .cta-band button:hover { transform: scale(1.06) rotate(-1deg); }
+  .cta-band button:active { transform: scale(0.95); }
 
   /* Tiles (launch) */
   .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem; }
@@ -163,8 +188,11 @@
   .tile {
     border-radius: 18px; padding: 1.8rem 1.2rem; text-align: center;
     color: #fff; cursor: pointer; border: none; font-size: 1.15rem; font-weight: 700;
-    font-family: "Fraunces", serif;
+    font-family: "Fredoka", sans-serif;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
   }
+  .tile:hover { transform: translateY(-4px) rotate(-1deg) scale(1.03); box-shadow: 0 12px 24px rgba(42,38,32,0.18); }
+  .tile:active { transform: scale(0.96); }
   .tile.math { background: var(--teal); }
   .tile.gk { background: var(--orange); }
   .tile .big { display: block; font-size: 2.2rem; margin-bottom: 0.4rem; }
@@ -187,10 +215,10 @@
   }
 
   .stats { display: flex; justify-content: center; gap: 1.7rem; margin-bottom: 1.1rem; font-size: 0.92rem; color: var(--muted); }
-  .stats b { color: var(--teal-dark); font-size: 1.15rem; font-family: "Fraunces", serif; }
+  .stats b { color: var(--teal-dark); font-size: 1.15rem; font-family: "Fredoka", sans-serif; }
 
   .problem {
-    text-align: center; font-family: "Fraunces", serif;
+    text-align: center; font-family: "Fredoka", sans-serif;
     font-size: clamp(2rem, 8vw, 2.7rem); font-weight: 600;
     margin: 1rem 0 1.6rem; color: var(--teal-dark);
   }
@@ -203,8 +231,10 @@
   button.primary {
     border: none; padding: 0.7rem 1.4rem; border-radius: 999px;
     font-size: 1.05rem; font-weight: 700; color: #fff; background: var(--teal); cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
   }
-  button.primary:hover { background: var(--teal-dark); }
+  button.primary:hover { background: var(--teal-dark); transform: scale(1.05); }
+  button.primary:active { transform: scale(0.95); }
   .feedback { text-align: center; margin-top: 1rem; font-size: 1.05rem; font-weight: 600; min-height: 1.6rem; }
   .feedback.correct { color: var(--green); }
   .feedback.wrong { color: var(--red); }
@@ -215,17 +245,36 @@
     text-align: left; padding: 0.8rem 1rem; border-radius: 12px;
     border: 2px solid rgba(42,38,32,0.12); background: #fff;
     font-size: 1rem; cursor: pointer; font-family: inherit; color: var(--ink);
+    transition: transform 0.12s ease, border-color 0.12s ease;
   }
-  .opt:hover { border-color: var(--teal); }
-  .opt.correct { background: var(--teal-tint); border-color: var(--green); }
+  .opt:hover:not([disabled]) { border-color: var(--teal); transform: translateX(3px); }
+  .opt.correct { background: var(--teal-tint); border-color: var(--green); animation: pop 0.3s ease; }
   .opt.wrong { background: #fbe4e0; border-color: var(--red); }
   .opt[disabled] { cursor: default; }
+  @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.04); } 100% { transform: scale(1); } }
 
   .next-row { text-align: center; margin-top: 1.25rem; }
   .topic-tag {
     display: inline-block; font-size: 0.72rem; text-transform: uppercase;
     letter-spacing: 0.06em; color: var(--teal-dark); background: var(--teal-tint);
     padding: 0.2rem 0.7rem; border-radius: 999px; margin-bottom: 0.9rem;
+  }
+  .star-rating { text-align: center; font-size: 2rem; margin: 0.6rem 0; letter-spacing: 0.2rem; }
+  .streak-toast {
+    position: fixed; left: 50%; bottom: 2rem; transform: translateX(-50%) translateY(20px);
+    background: var(--teal-dark); color: #fdf8ee; font-family: "Fredoka", sans-serif;
+    font-weight: 600; padding: 0.7rem 1.3rem; border-radius: 999px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.2); opacity: 0; transition: all 0.3s ease; z-index: 10;
+    pointer-events: none;
+  }
+  .streak-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .confetti-piece {
+    position: fixed; top: 40%; font-size: 1.4rem; pointer-events: none; z-index: 20;
+    animation: confetti-burst 0.9s ease-out forwards;
+  }
+  @keyframes confetti-burst {
+    0% { transform: translate(0, 0) rotate(0deg) scale(0.6); opacity: 1; }
+    100% { transform: var(--end, translate(0, -120px)) rotate(360deg) scale(1); opacity: 0; }
   }
 </style>
 </head>
@@ -247,9 +296,15 @@
 
   <!-- HOME -->
   <section id="home" class="view active">
-    <div class="eyebrow">Learning Corner</div>
-    <h1 class="hero">Learn, play, and <em>grow</em> — one step at a time.</h1>
-    <p class="sub">Two fun activities. No sign-in needed. Everything happens right here in your browser.</p>
+    <div class="hero-wrap">
+      <span class="doodle d1">⭐</span>
+      <span class="doodle d2">🎈</span>
+      <span class="doodle d3">✨</span>
+      <span class="doodle d4">🌈</span>
+      <div class="eyebrow">Learning Corner</div>
+      <h1 class="hero-title">Learn, play, and <em>grow</em> — one step at a time.</h1>
+      <p class="hero-sub">Two fun activities. No sign-in needed. Everything happens right here in your browser.</p>
+    </div>
 
     <div class="step">
       <div class="step-text">
@@ -424,6 +479,37 @@ let currentAnswer = null;
 
 function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 
+// ---------- Confetti & streak toast ----------
+function confettiBurst(x, y) {
+  const emojis = ['🎉', '⭐', '✨', '🎈', '🌟'];
+  for (let i = 0; i < 8; i++) {
+    const piece = document.createElement('span');
+    piece.className = 'confetti-piece';
+    piece.textContent = emojis[rand(0, emojis.length - 1)];
+    piece.style.left = x + 'px';
+    piece.style.top = y + 'px';
+    const dx = rand(-80, 80), dy = rand(-140, -60);
+    piece.style.setProperty('--end', `translate(${dx}px, ${dy}px)`);
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 950);
+  }
+}
+
+let streakToastTimer = null;
+function showStreakToast(msg) {
+  let toast = document.getElementById('streakToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'streakToast';
+    toast.className = 'streak-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  clearTimeout(streakToastTimer);
+  requestAnimationFrame(() => toast.classList.add('show'));
+  streakToastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+}
+
 function newProblem() {
   const level = mathLevelSel.value;
   const ranges = {
@@ -470,6 +556,11 @@ function checkAnswer() {
     }
     mathFeedback.textContent = 'Correct! 🎉';
     mathFeedback.className = 'feedback correct';
+    const rect = mathCheckBtn.getBoundingClientRect();
+    confettiBurst(rect.left + rect.width / 2, rect.top);
+    if ([5, 10, 20, 50].includes(mathStreak)) {
+      showStreakToast(`🔥 ${mathStreak} in a row! Amazing!`);
+    }
   } else {
     mathStreak = 0;
     mathFeedback.textContent = `Not quite — answer was ${currentAnswer}`;
@@ -556,8 +647,11 @@ function startGK() {
 function renderGK() {
   if (gkIndex >= gkQuestions.length) {
     gkTopicEl.textContent = 'Done';
+    const pct = gkScore / gkQuestions.length;
+    const starCount = pct >= 0.9 ? 3 : pct >= 0.6 ? 2 : 1;
+    const stars = '⭐'.repeat(starCount) + '☆'.repeat(3 - starCount);
     gkQuestionEl.innerHTML = `Quiz complete! 🎉<br>You scored <b>${gkScore}/${gkQuestions.length}</b>`;
-    gkOptionsEl.innerHTML = '';
+    gkOptionsEl.innerHTML = `<div class="star-rating">${stars}</div>`;
     if (gkScore > gkBest) {
       gkBest = gkScore;
       localStorage.setItem('rp_gk_best', gkBest);
@@ -591,7 +685,11 @@ function selectGK(choice, item) {
     if (i === item.a) b.classList.add('correct');
     else if (i === choice) b.classList.add('wrong');
   });
-  if (choice === item.a) gkScore++;
+  if (choice === item.a) {
+    gkScore++;
+    const rect = btns[choice].getBoundingClientRect();
+    confettiBurst(rect.left + rect.width / 2, rect.top);
+  }
   gkScoreEl.textContent = gkScore;
   gkNextBtn.textContent = 'Next Question →';
   gkNextBtn.style.display = 'inline-block';
