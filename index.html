@@ -3,113 +3,461 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>rukminipriya.in — Coming Soon</title>
+<title>Rukmini Priya's Learning Corner</title>
 <style>
-  :root { color-scheme: dark; }
+  :root {
+    --purple: #7c3aed;
+    --purple-dark: #5b21b6;
+    --pink: #ec4899;
+    --blue: #3b82f6;
+    --green: #22c55e;
+    --red: #ef4444;
+    --bg: #faf5ff;
+    --card: #ffffff;
+    --text: #1f1147;
+    --muted: #6b7280;
+    color-scheme: light;
+  }
   * { box-sizing: border-box; }
-  html, body { height: 100%; margin: 0; }
+  html, body { margin: 0; min-height: 100%; }
   body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: radial-gradient(circle at 20% 20%, #2a1a4a 0%, #0b0b14 45%, #05050a 100%);
-    color: #f5f5f7;
-    overflow: hidden;
-    position: relative;
+    background: linear-gradient(160deg, #ede4ff 0%, #fdf2ff 40%, #fff7ed 100%);
+    color: var(--text);
+    min-height: 100vh;
   }
 
-  .glow {
-    position: absolute;
-    width: 60vmax;
-    height: 60vmax;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(139,92,246,0.25) 0%, rgba(139,92,246,0) 70%);
-    top: -20vmax;
-    right: -20vmax;
-    filter: blur(10px);
-    animation: drift 12s ease-in-out infinite alternate;
-  }
-  @keyframes drift {
-    to { transform: translate(-4vmax, 4vmax) scale(1.05); }
-  }
-
-  .wrap {
-    position: relative;
+  header {
     text-align: center;
-    padding: 2.5rem 2rem;
-    z-index: 1;
+    padding: 2.5rem 1.5rem 1.5rem;
   }
-
-  .badge {
-    display: inline-block;
-    padding: 0.35rem 0.9rem;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.15);
-    background: rgba(255,255,255,0.05);
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #c4b5fd;
-    margin-bottom: 1.5rem;
-  }
-
-  h1 {
-    font-size: clamp(2.2rem, 7vw, 4rem);
-    margin: 0 0 0.75rem;
-    letter-spacing: -0.03em;
-    background: linear-gradient(135deg, #fff 20%, #c4b5fd 80%);
+  header h1 {
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+    margin: 0 0 0.3rem;
+    background: linear-gradient(135deg, var(--purple) 20%, var(--pink) 80%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
+  header p { color: var(--muted); margin: 0; font-size: 1.05rem; }
 
-  p.sub {
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    color: #a1a1aa;
-    margin: 0 auto 2rem;
-    max-width: 32rem;
-    line-height: 1.5;
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 0 1rem 1.5rem;
+  }
+  nav button {
+    border: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: #fff;
+    color: var(--purple-dark);
+    box-shadow: 0 2px 8px rgba(124,58,237,0.15);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  nav button:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(124,58,237,0.25); }
+  nav button.active {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: #fff;
   }
 
-  .domain {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  main { max-width: 700px; margin: 0 auto; padding: 0 1.25rem 3rem; }
+  .view { display: none; }
+  .view.active { display: block; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 1.75rem;
+    box-shadow: 0 8px 24px rgba(80,40,140,0.08);
+    margin-bottom: 1.25rem;
+  }
+
+  /* Home */
+  .home-hero { text-align: center; }
+  .home-hero .emoji { font-size: 3rem; }
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+  @media (max-width: 480px) { .tiles { grid-template-columns: 1fr; } }
+  .tile {
+    border-radius: 18px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  .tile.math { background: linear-gradient(135deg, var(--blue), var(--purple)); }
+  .tile.gk { background: linear-gradient(135deg, var(--pink), #f59e0b); }
+  .tile .big { display: block; font-size: 2.2rem; margin-bottom: 0.4rem; }
+
+  /* Controls row */
+  .controls { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; justify-content: center; }
+  select {
+    padding: 0.5rem 0.8rem;
+    border-radius: 10px;
+    border: 1px solid #e5d8ff;
+    background: #fff;
     font-size: 0.95rem;
-    color: #71717a;
-    letter-spacing: 0.02em;
+    color: var(--text);
   }
 
-  .dots {
-    display: inline-flex;
-    gap: 0.35rem;
-    margin-left: 0.4rem;
-    vertical-align: middle;
+  .stats { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem; font-size: 0.95rem; color: var(--muted); }
+  .stats b { color: var(--purple-dark); font-size: 1.15rem; }
+
+  /* Math */
+  .problem {
+    text-align: center;
+    font-size: clamp(2rem, 8vw, 2.8rem);
+    font-weight: 700;
+    margin: 1rem 0 1.5rem;
+    color: var(--purple-dark);
   }
-  .dots span {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #8b5cf6;
-    animation: pulse 1.4s ease-in-out infinite;
+  .answer-row { display: flex; gap: 0.6rem; justify-content: center; }
+  .answer-row input {
+    width: 8rem;
+    font-size: 1.4rem;
+    text-align: center;
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: 2px solid #e5d8ff;
   }
-  .dots span:nth-child(2) { animation-delay: 0.2s; }
-  .dots span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes pulse {
-    0%, 80%, 100% { opacity: 0.25; transform: scale(0.8); }
-    40% { opacity: 1; transform: scale(1); }
+  .answer-row input:focus { outline: none; border-color: var(--purple); }
+  button.primary {
+    border: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    cursor: pointer;
   }
+  .feedback { text-align: center; margin-top: 1rem; font-size: 1.1rem; font-weight: 600; min-height: 1.6rem; }
+  .feedback.correct { color: var(--green); }
+  .feedback.wrong { color: var(--red); }
+
+  /* GK */
+  .question { font-size: 1.25rem; font-weight: 600; margin-bottom: 1.25rem; text-align: center; }
+  .options { display: grid; gap: 0.7rem; }
+  .opt {
+    text-align: left;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    border: 2px solid #e5d8ff;
+    background: #fff;
+    font-size: 1.02rem;
+    cursor: pointer;
+  }
+  .opt:hover { border-color: var(--purple); }
+  .opt.correct { background: #dcfce7; border-color: var(--green); }
+  .opt.wrong { background: #fee2e2; border-color: var(--red); }
+  .opt[disabled] { cursor: default; }
+
+  .next-row { text-align: center; margin-top: 1.25rem; }
+  .topic-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--purple-dark);
+    background: #f3e8ff;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+  .center { text-align: center; }
+  .muted { color: var(--muted); }
 </style>
 </head>
 <body>
-  <div class="glow" aria-hidden="true"></div>
-  <div class="wrap">
-    <span class="badge">Launching Soon</span>
-    <h1>Coming Soon</h1>
-    <p class="sub">We're putting the finishing touches on something new. Check back shortly.</p>
-    <div class="domain">
-      rukminipriya.in
-      <span class="dots" aria-hidden="true"><span></span><span></span><span></span></span>
+
+<header>
+  <h1>Rukmini Priya's Learning Corner</h1>
+  <p>Practice Math &amp; test your General Knowledge!</p>
+</header>
+
+<nav>
+  <button class="nav-btn active" data-view="home">🏠 Home</button>
+  <button class="nav-btn" data-view="math">➗ Math Practice</button>
+  <button class="nav-btn" data-view="gk">🌍 General Knowledge</button>
+</nav>
+
+<main>
+
+  <!-- HOME -->
+  <section id="home" class="view active">
+    <div class="card home-hero">
+      <span class="emoji">✨</span>
+      <p>Hi Rukmini! Pick something to practice today.</p>
+      <div class="tiles">
+        <button class="tile math" data-view="math"><span class="big">🧮</span>Math Practice</button>
+        <button class="tile gk" data-view="gk"><span class="big">🌎</span>General Knowledge</button>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- MATH -->
+  <section id="math" class="view">
+    <div class="card">
+      <div class="controls">
+        <select id="mathOp">
+          <option value="mixed">Mixed</option>
+          <option value="+">Addition (+)</option>
+          <option value="-">Subtraction (−)</option>
+          <option value="*">Multiplication (×)</option>
+          <option value="/">Division (÷)</option>
+        </select>
+        <select id="mathLevel">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <div class="stats">
+        <div>Score <b id="mathScore">0</b></div>
+        <div>Streak <b id="mathStreak">0</b></div>
+        <div>Best <b id="mathBest">0</b></div>
+      </div>
+      <div class="problem" id="mathProblem">— </div>
+      <div class="answer-row">
+        <input type="number" id="mathInput" placeholder="?" autocomplete="off">
+        <button class="primary" id="mathCheck">Check</button>
+      </div>
+      <div class="feedback" id="mathFeedback"></div>
+    </div>
+  </section>
+
+  <!-- GK -->
+  <section id="gk" class="view">
+    <div class="card">
+      <div class="stats">
+        <div>Question <b id="gkNum">1</b>/<span id="gkTotal">10</span></div>
+        <div>Score <b id="gkScore">0</b></div>
+        <div>Best <b id="gkBest">0</b></div>
+      </div>
+      <div class="topic-tag" id="gkTopic">General</div>
+      <div class="question" id="gkQuestion">Loading...</div>
+      <div class="options" id="gkOptions"></div>
+      <div class="next-row">
+        <button class="primary" id="gkNext" style="display:none;">Next Question →</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+// ---------- Navigation ----------
+const views = document.querySelectorAll('.view');
+const navBtns = document.querySelectorAll('.nav-btn');
+function showView(name) {
+  views.forEach(v => v.classList.toggle('active', v.id === name));
+  navBtns.forEach(b => b.classList.toggle('active', b.dataset.view === name));
+  if (name === 'gk' && !gkStarted) startGK();
+}
+document.querySelectorAll('[data-view]').forEach(el => {
+  el.addEventListener('click', () => showView(el.dataset.view));
+});
+
+// ---------- Math Practice ----------
+const mathOpSel = document.getElementById('mathOp');
+const mathLevelSel = document.getElementById('mathLevel');
+const mathProblemEl = document.getElementById('mathProblem');
+const mathInput = document.getElementById('mathInput');
+const mathCheckBtn = document.getElementById('mathCheck');
+const mathFeedback = document.getElementById('mathFeedback');
+const mathScoreEl = document.getElementById('mathScore');
+const mathStreakEl = document.getElementById('mathStreak');
+const mathBestEl = document.getElementById('mathBest');
+
+let mathScore = 0, mathStreak = 0;
+let mathBest = Number(localStorage.getItem('rp_math_best') || 0);
+mathBestEl.textContent = mathBest;
+let currentAnswer = null;
+
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+function newProblem() {
+  const level = mathLevelSel.value;
+  const ranges = {
+    easy:   { add: [1, 20], mul: [1, 5],  div: [1, 5] },
+    medium: { add: [10, 100], mul: [2, 10], div: [2, 10] },
+    hard:   { add: [50, 500], mul: [5, 15], div: [5, 15] }
+  }[level];
+
+  let op = mathOpSel.value;
+  if (op === 'mixed') op = ['+', '-', '*', '/'][rand(0, 3)];
+
+  let a, b, text, answer;
+  if (op === '+') {
+    a = rand(...ranges.add); b = rand(...ranges.add);
+    text = `${a} + ${b}`; answer = a + b;
+  } else if (op === '-') {
+    a = rand(...ranges.add); b = rand(...ranges.add);
+    if (b > a) [a, b] = [b, a];
+    text = `${a} − ${b}`; answer = a - b;
+  } else if (op === '*') {
+    a = rand(...ranges.mul); b = rand(...ranges.mul);
+    text = `${a} × ${b}`; answer = a * b;
+  } else {
+    b = rand(...ranges.div); const k = rand(...ranges.div);
+    a = b * k;
+    text = `${a} ÷ ${b}`; answer = k;
+  }
+  currentAnswer = answer;
+  mathProblemEl.textContent = text;
+  mathInput.value = '';
+  mathFeedback.textContent = '';
+  mathFeedback.className = 'feedback';
+  mathInput.focus();
+}
+
+function checkAnswer() {
+  if (mathInput.value === '') return;
+  const val = Number(mathInput.value);
+  if (val === currentAnswer) {
+    mathScore++; mathStreak++;
+    if (mathStreak > mathBest) {
+      mathBest = mathStreak;
+      localStorage.setItem('rp_math_best', mathBest);
+    }
+    mathFeedback.textContent = 'Correct! 🎉';
+    mathFeedback.className = 'feedback correct';
+  } else {
+    mathStreak = 0;
+    mathFeedback.textContent = `Not quite — answer was ${currentAnswer}`;
+    mathFeedback.className = 'feedback wrong';
+  }
+  mathScoreEl.textContent = mathScore;
+  mathStreakEl.textContent = mathStreak;
+  mathBestEl.textContent = mathBest;
+  setTimeout(newProblem, 1100);
+}
+
+mathCheckBtn.addEventListener('click', checkAnswer);
+mathInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkAnswer(); });
+mathOpSel.addEventListener('change', newProblem);
+mathLevelSel.addEventListener('change', newProblem);
+newProblem();
+
+// ---------- General Knowledge ----------
+const gkBank = [
+  { topic: 'Geography', q: 'What is the capital of India?', options: ['Mumbai', 'New Delhi', 'Kolkata', 'Chennai'], a: 1 },
+  { topic: 'Geography', q: 'Which is the largest continent by area?', options: ['Africa', 'Asia', 'Europe', 'Australia'], a: 1 },
+  { topic: 'Geography', q: 'Which river is the longest in the world?', options: ['Amazon', 'Ganga', 'Nile', 'Yangtze'], a: 2 },
+  { topic: 'Geography', q: 'Mount Everest is located in which mountain range?', options: ['Alps', 'Andes', 'Himalayas', 'Rockies'], a: 2 },
+  { topic: 'Geography', q: 'Which is the smallest country in the world?', options: ['Monaco', 'Vatican City', 'Malta', 'Nauru'], a: 1 },
+  { topic: 'Science', q: 'How many planets are there in our solar system?', options: ['7', '8', '9', '10'], a: 1 },
+  { topic: 'Science', q: 'Which planet is known as the Red Planet?', options: ['Venus', 'Jupiter', 'Mars', 'Saturn'], a: 2 },
+  { topic: 'Science', q: 'What gas do plants absorb from the air to make food?', options: ['Oxygen', 'Carbon dioxide', 'Nitrogen', 'Hydrogen'], a: 1 },
+  { topic: 'Science', q: 'How many bones are there in an adult human body?', options: ['186', '206', '226', '246'], a: 1 },
+  { topic: 'Science', q: 'What is the chemical symbol for water?', options: ['H2O', 'CO2', 'O2', 'NaCl'], a: 0 },
+  { topic: 'Science', q: 'Which part of the body pumps blood?', options: ['Lungs', 'Brain', 'Heart', 'Liver'], a: 2 },
+  { topic: 'Science', q: 'What do bees make?', options: ['Milk', 'Honey', 'Silk', 'Wax only'], a: 1 },
+  { topic: 'History', q: 'Who was the first Prime Minister of India?', options: ['Mahatma Gandhi', 'Jawaharlal Nehru', 'Sardar Patel', 'Dr. Rajendra Prasad'], a: 1 },
+  { topic: 'History', q: 'In which year did India get independence?', options: ['1945', '1946', '1947', '1950'], a: 2 },
+  { topic: 'History', q: 'Who wrote the Indian National Anthem?', options: ['Rabindranath Tagore', 'Bankim Chandra', 'Sarojini Naidu', 'Subhas Chandra Bose'], a: 0 },
+  { topic: 'General', q: 'How many days are there in a leap year?', options: ['364', '365', '366', '367'], a: 2 },
+  { topic: 'General', q: 'How many colors are there in a rainbow?', options: ['5', '6', '7', '8'], a: 2 },
+  { topic: 'General', q: 'What is the national bird of India?', options: ['Parrot', 'Peacock', 'Sparrow', 'Eagle'], a: 1 },
+  { topic: 'General', q: 'What is the national animal of India?', options: ['Lion', 'Elephant', 'Tiger', 'Deer'], a: 2 },
+  { topic: 'General', q: 'Which shape has three sides?', options: ['Square', 'Triangle', 'Pentagon', 'Circle'], a: 1 },
+  { topic: 'General', q: 'How many months have 31 days?', options: ['5', '6', '7', '8'], a: 2 },
+  { topic: 'Sports', q: 'How many players are there in a cricket team?', options: ['9', '10', '11', '12'], a: 2 },
+  { topic: 'Sports', q: 'In which sport would you perform a "slam dunk"?', options: ['Football', 'Basketball', 'Tennis', 'Hockey'], a: 1 },
+  { topic: 'Sports', q: 'The Olympic Games are held every how many years?', options: ['2', '3', '4', '5'], a: 2 },
+  { topic: 'Nature', q: 'Which is the largest animal on Earth?', options: ['Elephant', 'Blue Whale', 'Giraffe', 'Shark'], a: 1 },
+  { topic: 'Nature', q: 'Which is the fastest land animal?', options: ['Lion', 'Horse', 'Cheetah', 'Leopard'], a: 2 },
+  { topic: 'Nature', q: 'What do caterpillars turn into?', options: ['Bees', 'Butterflies', 'Moths only', 'Beetles'], a: 1 },
+  { topic: 'Nature', q: 'Which bird cannot fly?', options: ['Sparrow', 'Ostrich', 'Eagle', 'Pigeon'], a: 1 },
+  { topic: 'General', q: 'What do we call a baby dog?', options: ['Kitten', 'Cub', 'Puppy', 'Calf'], a: 2 },
+  { topic: 'General', q: 'Which is the closest star to Earth?', options: ['Sirius', 'Proxima Centauri', 'The Sun', 'Polaris'], a: 2 },
+];
+
+const GK_QUIZ_LEN = 10;
+let gkQuestions = [], gkIndex = 0, gkScore = 0, gkStarted = false;
+const gkQuestionEl = document.getElementById('gkQuestion');
+const gkOptionsEl = document.getElementById('gkOptions');
+const gkTopicEl = document.getElementById('gkTopic');
+const gkNumEl = document.getElementById('gkNum');
+const gkTotalEl = document.getElementById('gkTotal');
+const gkScoreEl = document.getElementById('gkScore');
+const gkBestEl = document.getElementById('gkBest');
+const gkNextBtn = document.getElementById('gkNext');
+let gkBest = Number(localStorage.getItem('rp_gk_best') || 0);
+gkBestEl.textContent = gkBest;
+gkTotalEl.textContent = GK_QUIZ_LEN;
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = rand(0, i);
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGK() {
+  gkStarted = true;
+  gkQuestions = shuffle(gkBank).slice(0, GK_QUIZ_LEN);
+  gkIndex = 0;
+  gkScore = 0;
+  gkScoreEl.textContent = gkScore;
+  renderGK();
+}
+
+function renderGK() {
+  if (gkIndex >= gkQuestions.length) {
+    gkTopicEl.textContent = 'Done';
+    gkQuestionEl.innerHTML = `Quiz complete! 🎉<br>You scored <b>${gkScore}/${gkQuestions.length}</b>`;
+    gkOptionsEl.innerHTML = '';
+    if (gkScore > gkBest) {
+      gkBest = gkScore;
+      localStorage.setItem('rp_gk_best', gkBest);
+      gkBestEl.textContent = gkBest;
+    }
+    gkNextBtn.textContent = 'Play Again';
+    gkNextBtn.style.display = 'inline-block';
+    gkNextBtn.onclick = startGK;
+    return;
+  }
+  const item = gkQuestions[gkIndex];
+  gkNumEl.textContent = gkIndex + 1;
+  gkTopicEl.textContent = item.topic;
+  gkQuestionEl.textContent = item.q;
+  gkOptionsEl.innerHTML = '';
+  gkNextBtn.style.display = 'none';
+
+  item.options.forEach((optText, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.textContent = optText;
+    btn.addEventListener('click', () => selectGK(i, item));
+    gkOptionsEl.appendChild(btn);
+  });
+}
+
+function selectGK(choice, item) {
+  const btns = gkOptionsEl.querySelectorAll('.opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === item.a) b.classList.add('correct');
+    else if (i === choice) b.classList.add('wrong');
+  });
+  if (choice === item.a) gkScore++;
+  gkScoreEl.textContent = gkScore;
+  gkNextBtn.textContent = 'Next Question →';
+  gkNextBtn.style.display = 'inline-block';
+  gkNextBtn.onclick = () => { gkIndex++; renderGK(); };
+}
+</script>
 </body>
 </html>
