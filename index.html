@@ -53,9 +53,8 @@
   .brand { display: flex; align-items: center; gap: 0.6rem; }
   .brand .mark {
     width: 36px; height: 36px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--teal), var(--sky)); color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.1rem;
+    display: block; object-fit: cover;
+    border: 2px solid var(--teal);
   }
   .brand .word { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.15rem; }
   nav.site { display: flex; gap: 1.6rem; }
@@ -282,7 +281,7 @@
 
 <header class="site">
   <div class="brand">
-    <span class="mark">R</span>
+    <img class="mark" src="priya-avatar.png" alt="Priya">
     <span class="word">Priya's Corner</span>
   </div>
   <nav class="site">
