@@ -4,209 +4,343 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rukmini Priya's Learning Corner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --purple: #7c3aed;
-    --purple-dark: #5b21b6;
-    --pink: #ec4899;
-    --blue: #3b82f6;
-    --green: #22c55e;
-    --red: #ef4444;
-    --bg: #faf5ff;
-    --card: #ffffff;
-    --text: #1f1147;
-    --muted: #6b7280;
+    --cream: #f2ead9;
+    --cream-deep: #ece1cb;
+    --panel: #fffaf1;
+    --ink: #2a2620;
+    --muted: #766f63;
+    --teal: #2f5d50;
+    --teal-dark: #21453b;
+    --teal-tint: #dcece5;
+    --orange: #e8734a;
+    --green: #1f8a55;
+    --red: #c0392b;
     color-scheme: light;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; min-height: 100%; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: linear-gradient(160deg, #ede4ff 0%, #fdf2ff 40%, #fff7ed 100%);
-    color: var(--text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
     min-height: 100vh;
   }
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; font-weight: 600; margin: 0; }
+  em { font-style: italic; color: var(--teal); font-family: "Fraunces", Georgia, serif; font-weight: 500; }
 
-  header {
-    text-align: center;
-    padding: 2.5rem 1.5rem 1.5rem;
-  }
-  header h1 {
-    font-size: clamp(1.8rem, 6vw, 2.6rem);
-    margin: 0 0 0.3rem;
-    background: linear-gradient(135deg, var(--purple) 20%, var(--pink) 80%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  header p { color: var(--muted); margin: 0; font-size: 1.05rem; }
-
-  nav {
+  /* Header */
+  header.site {
     display: flex;
-    justify-content: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    padding: 0 1rem 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid rgba(42,38,32,0.08);
+    max-width: 1080px;
+    margin: 0 auto;
   }
-  nav button {
-    border: none;
-    padding: 0.7rem 1.4rem;
-    border-radius: 999px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    background: #fff;
-    color: var(--purple-dark);
-    box-shadow: 0 2px 8px rgba(124,58,237,0.15);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  .brand { display: flex; align-items: center; gap: 0.6rem; }
+  .brand .mark {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: var(--teal); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Fraunces", serif; font-weight: 600; font-size: 1.05rem;
   }
-  nav button:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(124,58,237,0.25); }
-  nav button.active {
-    background: linear-gradient(135deg, var(--purple), var(--pink));
-    color: #fff;
+  .brand .word { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.15rem; }
+  nav.site { display: flex; gap: 1.6rem; }
+  nav.site a {
+    font-size: 0.92rem; font-weight: 500; color: var(--muted);
+    text-decoration: none; cursor: pointer; padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
   }
+  nav.site a.active, nav.site a:hover { color: var(--ink); border-color: var(--orange); }
 
-  main { max-width: 700px; margin: 0 auto; padding: 0 1.25rem 3rem; }
+  main { max-width: 1080px; margin: 0 auto; padding: 0 2rem 4rem; }
+  @media (max-width: 720px) { main { padding: 0 1.25rem 3rem; } header.site { padding: 1.1rem 1.25rem; } }
+
   .view { display: none; }
   .view.active { display: block; animation: fadeIn 0.25s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-  .card {
-    background: var(--card);
-    border-radius: 20px;
-    padding: 1.75rem;
-    box-shadow: 0 8px 24px rgba(80,40,140,0.08);
-    margin-bottom: 1.25rem;
+  /* Hero */
+  .eyebrow {
+    text-align: center; text-transform: uppercase; letter-spacing: 0.12em;
+    font-size: 0.78rem; font-weight: 600; color: var(--teal); margin-top: 3rem;
+  }
+  .hero h1 {
+    text-align: center; font-size: clamp(2rem, 5.5vw, 3.2rem); line-height: 1.15;
+    margin: 0.7rem auto 0; max-width: 42rem;
+  }
+  .hero p.sub {
+    text-align: center; color: var(--muted); font-size: 1.08rem;
+    max-width: 34rem; margin: 1.1rem auto 0;
   }
 
-  /* Home */
-  .home-hero { text-align: center; }
-  .home-hero .emoji { font-size: 3rem; }
-  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
-  @media (max-width: 480px) { .tiles { grid-template-columns: 1fr; } }
-  .tile {
-    border-radius: 18px;
-    padding: 1.5rem 1rem;
-    text-align: center;
-    color: #fff;
-    cursor: pointer;
-    border: none;
-    font-size: 1.1rem;
-    font-weight: 700;
+  /* Steps */
+  .step { display: flex; align-items: center; gap: 3rem; margin-top: 5rem; }
+  .step.reverse { flex-direction: row-reverse; }
+  .step-text, .step-mock { flex: 1; min-width: 0; }
+  @media (max-width: 800px) {
+    .step, .step.reverse { flex-direction: column; gap: 1.75rem; margin-top: 3.5rem; }
   }
-  .tile.math { background: linear-gradient(135deg, var(--blue), var(--purple)); }
-  .tile.gk { background: linear-gradient(135deg, var(--pink), #f59e0b); }
+  .step-badge {
+    display: inline-block; font-size: 0.85rem; font-weight: 600;
+    background: var(--teal-tint); color: var(--teal-dark);
+    padding: 0.3rem 0.85rem; border-radius: 999px; margin-bottom: 0.9rem;
+  }
+  .step-text h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); line-height: 1.2; }
+  .step-text p { color: var(--muted); font-size: 1rem; line-height: 1.6; margin: 0.9rem 0 1rem; }
+  .checklist { list-style: none; padding: 0; margin: 0; }
+  .checklist li { color: var(--ink); font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .checklist li::before { content: "✓ "; color: var(--teal); font-weight: 700; }
+
+  /* Browser mockup */
+  .mockup {
+    background: var(--panel);
+    border-radius: 16px;
+    box-shadow: 0 20px 45px rgba(42,38,32,0.12);
+    overflow: hidden;
+    border: 1px solid rgba(42,38,32,0.06);
+  }
+  .mockup-bar {
+    display: flex; align-items: center; gap: 0.4rem;
+    background: var(--cream-deep); padding: 0.6rem 0.9rem;
+  }
+  .mockup-bar .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .mockup-bar .dot.r { background: #e58a7a; }
+  .mockup-bar .dot.y { background: #e8c07a; }
+  .mockup-bar .dot.g { background: #8fbf8f; }
+  .mockup-bar .url {
+    flex: 1; text-align: center; font-size: 0.72rem; color: var(--muted);
+  }
+  .mockup-body { padding: 1.4rem; }
+
+  .mock-tiles { display: flex; gap: 0.8rem; }
+  .mock-tile {
+    flex: 1; border-radius: 12px; padding: 1.1rem 0.8rem; text-align: center;
+    font-size: 0.85rem; font-weight: 600; color: #fff;
+  }
+  .mock-tile.a { background: var(--teal); }
+  .mock-tile.b { background: var(--orange); }
+  .mock-tile .icon { display: block; font-size: 1.5rem; margin-bottom: 0.3rem; }
+
+  .mock-problem { text-align: center; }
+  .mock-problem .expr { font-family: "Fraunces", serif; font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .mock-answer {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--cream); border-radius: 10px; padding: 0.5rem 0.9rem;
+    font-size: 1rem; font-weight: 600;
+  }
+  .mock-check { color: var(--green); font-weight: 700; margin-top: 0.7rem; font-size: 0.9rem; }
+
+  .mock-stats { display: flex; gap: 0.7rem; }
+  .mock-stat { flex: 1; background: var(--cream); border-radius: 10px; padding: 0.8rem; text-align: center; }
+  .mock-stat.hi { background: var(--teal-tint); }
+  .mock-stat .num { font-family: "Fraunces", serif; font-size: 1.3rem; color: var(--teal-dark); }
+  .mock-stat .lbl { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+  /* CTA band */
+  .cta-band {
+    background: var(--teal-dark); border-radius: 20px; color: #f2ead9;
+    padding: 2.4rem 2.2rem; margin-top: 4.5rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+  }
+  .cta-band h2 { font-size: clamp(1.5rem, 3.6vw, 2rem); color: #fdf8ee; }
+  .cta-band p { margin: 0.5rem 0 0; color: #cfe0d8; }
+  .cta-band button {
+    border: none; background: #fdf8ee; color: var(--teal-dark);
+    padding: 0.85rem 1.6rem; border-radius: 999px; font-weight: 700;
+    font-size: 1rem; cursor: pointer; white-space: nowrap;
+  }
+
+  /* Tiles (launch) */
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem; }
+  @media (max-width: 520px) { .tiles { grid-template-columns: 1fr; } }
+  .tile {
+    border-radius: 18px; padding: 1.8rem 1.2rem; text-align: center;
+    color: #fff; cursor: pointer; border: none; font-size: 1.15rem; font-weight: 700;
+    font-family: "Fraunces", serif;
+  }
+  .tile.math { background: var(--teal); }
+  .tile.gk { background: var(--orange); }
   .tile .big { display: block; font-size: 2.2rem; margin-bottom: 0.4rem; }
 
-  /* Controls row */
-  .controls { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; justify-content: center; }
+  /* App cards (Math / GK) */
+  .card {
+    background: var(--panel);
+    border-radius: 20px;
+    padding: 1.9rem;
+    box-shadow: 0 10px 28px rgba(42,38,32,0.08);
+    margin: 2.5rem auto 0;
+    max-width: 640px;
+  }
+  .card h2 { text-align: center; font-size: 1.6rem; margin-bottom: 1.3rem; }
+
+  .controls { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.4rem; justify-content: center; }
   select {
-    padding: 0.5rem 0.8rem;
-    border-radius: 10px;
-    border: 1px solid #e5d8ff;
-    background: #fff;
-    font-size: 0.95rem;
-    color: var(--text);
+    padding: 0.5rem 0.8rem; border-radius: 10px; border: 1px solid rgba(42,38,32,0.15);
+    background: #fff; font-size: 0.95rem; color: var(--ink); font-family: inherit;
   }
 
-  .stats { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem; font-size: 0.95rem; color: var(--muted); }
-  .stats b { color: var(--purple-dark); font-size: 1.15rem; }
+  .stats { display: flex; justify-content: center; gap: 1.7rem; margin-bottom: 1.1rem; font-size: 0.92rem; color: var(--muted); }
+  .stats b { color: var(--teal-dark); font-size: 1.15rem; font-family: "Fraunces", serif; }
 
-  /* Math */
   .problem {
-    text-align: center;
-    font-size: clamp(2rem, 8vw, 2.8rem);
-    font-weight: 700;
-    margin: 1rem 0 1.5rem;
-    color: var(--purple-dark);
+    text-align: center; font-family: "Fraunces", serif;
+    font-size: clamp(2rem, 8vw, 2.7rem); font-weight: 600;
+    margin: 1rem 0 1.6rem; color: var(--teal-dark);
   }
   .answer-row { display: flex; gap: 0.6rem; justify-content: center; }
   .answer-row input {
-    width: 8rem;
-    font-size: 1.4rem;
-    text-align: center;
-    padding: 0.6rem;
-    border-radius: 12px;
-    border: 2px solid #e5d8ff;
+    width: 8rem; font-size: 1.4rem; text-align: center; padding: 0.6rem;
+    border-radius: 12px; border: 2px solid rgba(42,38,32,0.15); font-family: inherit;
   }
-  .answer-row input:focus { outline: none; border-color: var(--purple); }
+  .answer-row input:focus { outline: none; border-color: var(--teal); }
   button.primary {
-    border: none;
-    padding: 0.7rem 1.4rem;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #fff;
-    background: linear-gradient(135deg, var(--purple), var(--pink));
-    cursor: pointer;
+    border: none; padding: 0.7rem 1.4rem; border-radius: 999px;
+    font-size: 1.05rem; font-weight: 700; color: #fff; background: var(--teal); cursor: pointer;
   }
-  .feedback { text-align: center; margin-top: 1rem; font-size: 1.1rem; font-weight: 600; min-height: 1.6rem; }
+  button.primary:hover { background: var(--teal-dark); }
+  .feedback { text-align: center; margin-top: 1rem; font-size: 1.05rem; font-weight: 600; min-height: 1.6rem; }
   .feedback.correct { color: var(--green); }
   .feedback.wrong { color: var(--red); }
 
-  /* GK */
-  .question { font-size: 1.25rem; font-weight: 600; margin-bottom: 1.25rem; text-align: center; }
+  .question { font-size: 1.2rem; font-weight: 600; margin-bottom: 1.25rem; text-align: center; }
   .options { display: grid; gap: 0.7rem; }
   .opt {
-    text-align: left;
-    padding: 0.8rem 1rem;
-    border-radius: 12px;
-    border: 2px solid #e5d8ff;
-    background: #fff;
-    font-size: 1.02rem;
-    cursor: pointer;
+    text-align: left; padding: 0.8rem 1rem; border-radius: 12px;
+    border: 2px solid rgba(42,38,32,0.12); background: #fff;
+    font-size: 1rem; cursor: pointer; font-family: inherit; color: var(--ink);
   }
-  .opt:hover { border-color: var(--purple); }
-  .opt.correct { background: #dcfce7; border-color: var(--green); }
-  .opt.wrong { background: #fee2e2; border-color: var(--red); }
+  .opt:hover { border-color: var(--teal); }
+  .opt.correct { background: var(--teal-tint); border-color: var(--green); }
+  .opt.wrong { background: #fbe4e0; border-color: var(--red); }
   .opt[disabled] { cursor: default; }
 
   .next-row { text-align: center; margin-top: 1.25rem; }
   .topic-tag {
-    display: inline-block;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--purple-dark);
-    background: #f3e8ff;
-    padding: 0.2rem 0.7rem;
-    border-radius: 999px;
-    margin-bottom: 0.75rem;
+    display: inline-block; font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--teal-dark); background: var(--teal-tint);
+    padding: 0.2rem 0.7rem; border-radius: 999px; margin-bottom: 0.9rem;
   }
-  .center { text-align: center; }
-  .muted { color: var(--muted); }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Rukmini Priya's Learning Corner</h1>
-  <p>Practice Math &amp; test your General Knowledge!</p>
+<header class="site">
+  <div class="brand">
+    <span class="mark">R</span>
+    <span class="word">Rukmini's Corner</span>
+  </div>
+  <nav class="site">
+    <a class="nav-btn active" data-view="home">How it works</a>
+    <a class="nav-btn" data-view="math">Math</a>
+    <a class="nav-btn" data-view="gk">General Knowledge</a>
+  </nav>
 </header>
-
-<nav>
-  <button class="nav-btn active" data-view="home">🏠 Home</button>
-  <button class="nav-btn" data-view="math">➗ Math Practice</button>
-  <button class="nav-btn" data-view="gk">🌍 General Knowledge</button>
-</nav>
 
 <main>
 
   <!-- HOME -->
   <section id="home" class="view active">
-    <div class="card home-hero">
-      <span class="emoji">✨</span>
-      <p>Hi Rukmini! Pick something to practice today.</p>
-      <div class="tiles">
-        <button class="tile math" data-view="math"><span class="big">🧮</span>Math Practice</button>
-        <button class="tile gk" data-view="gk"><span class="big">🌎</span>General Knowledge</button>
+    <div class="eyebrow">Learning Corner</div>
+    <h1 class="hero">Learn, play, and <em>grow</em> — one step at a time.</h1>
+    <p class="sub">Two fun activities. No sign-in needed. Everything happens right here in your browser.</p>
+
+    <div class="step">
+      <div class="step-text">
+        <span class="step-badge">Step 01</span>
+        <h2>Pick an activity</h2>
+        <p>Choose Math Practice to sharpen your number skills, or General Knowledge to explore fun facts about the world.</p>
+        <ul class="checklist">
+          <li>Math practice with 4 operations</li>
+          <li>General Knowledge quiz</li>
+          <li>New questions every time you play</li>
+        </ul>
       </div>
+      <div class="step-mock">
+        <div class="mockup">
+          <div class="mockup-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">rukminipriya.in</span></div>
+          <div class="mockup-body">
+            <div class="mock-tiles">
+              <div class="mock-tile a"><span class="icon">🧮</span>Math Practice</div>
+              <div class="mock-tile b"><span class="icon">🌎</span>General Knowledge</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step reverse">
+      <div class="step-text">
+        <span class="step-badge">Step 02</span>
+        <h2>Answer &amp; get instant feedback</h2>
+        <p>Solve the problem or pick an answer. You'll know right away if you got it right — and if not, you'll see the correct answer so you can learn from it.</p>
+        <ul class="checklist">
+          <li>Instant right / wrong feedback</li>
+          <li>Correct answer shown when you miss one</li>
+          <li>No pressure — go at your own pace</li>
+        </ul>
+      </div>
+      <div class="step-mock">
+        <div class="mockup">
+          <div class="mockup-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">rukminipriya.in</span></div>
+          <div class="mockup-body mock-problem">
+            <div class="expr">7 × 8 = ?</div>
+            <span class="mock-answer">56</span>
+            <div class="mock-check">✓ Correct! 🎉</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-text">
+        <span class="step-badge">Step 03</span>
+        <h2>Track your score</h2>
+        <p>Watch your score and streak grow as you play. Your best score is saved automatically, so you can come back anytime and try to beat it.</p>
+        <ul class="checklist">
+          <li>Score &amp; streak counter</li>
+          <li>Best score saved automatically</li>
+          <li>Come back anytime to beat your record</li>
+        </ul>
+      </div>
+      <div class="step-mock">
+        <div class="mockup">
+          <div class="mockup-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">rukminipriya.in</span></div>
+          <div class="mockup-body">
+            <div class="mock-stats">
+              <div class="mock-stat"><div class="num">12</div><div class="lbl">Score</div></div>
+              <div class="mock-stat hi"><div class="num">9</div><div class="lbl">Streak</div></div>
+              <div class="mock-stat"><div class="num">15</div><div class="lbl">Best</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-band">
+      <div>
+        <h2>Ready to play and learn?</h2>
+        <p>Takes 10 seconds. No sign-in. Just for fun.</p>
+      </div>
+      <button id="startBtn">Start Learning →</button>
+    </div>
+
+    <div class="tiles">
+      <button class="tile math" data-view="math"><span class="big">🧮</span>Math Practice</button>
+      <button class="tile gk" data-view="gk"><span class="big">🌎</span>General Knowledge</button>
     </div>
   </section>
 
   <!-- MATH -->
   <section id="math" class="view">
     <div class="card">
+      <h2>Math Practice</h2>
       <div class="controls">
         <select id="mathOp">
           <option value="mixed">Mixed</option>
@@ -238,6 +372,7 @@
   <!-- GK -->
   <section id="gk" class="view">
     <div class="card">
+      <h2>General Knowledge</h2>
       <div class="stats">
         <div>Question <b id="gkNum">1</b>/<span id="gkTotal">10</span></div>
         <div>Score <b id="gkScore">0</b></div>
@@ -261,10 +396,14 @@ const navBtns = document.querySelectorAll('.nav-btn');
 function showView(name) {
   views.forEach(v => v.classList.toggle('active', v.id === name));
   navBtns.forEach(b => b.classList.toggle('active', b.dataset.view === name));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   if (name === 'gk' && !gkStarted) startGK();
 }
 document.querySelectorAll('[data-view]').forEach(el => {
   el.addEventListener('click', () => showView(el.dataset.view));
+});
+document.getElementById('startBtn').addEventListener('click', () => {
+  document.querySelector('.tiles').scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 
 // ---------- Math Practice ----------
