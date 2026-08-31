@@ -3,26 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Priya's Learning Corner</title>
+<title>Priya's Math Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #f2ead9;
-    --cream-deep: #ece1cb;
-    --panel: #fffaf1;
-    --ink: #2a2620;
-    --muted: #766f63;
-    --teal: #2f5d50;
-    --teal-dark: #21453b;
-    --teal-tint: #dcece5;
-    --orange: #e8734a;
-    --green: #1f8a55;
+    --cream: #f4f0e7;
+    --panel: #fbf8f2;
+    --ink: #22302c;
+    --muted: #726a60;
+    --primary: #244847;
+    --primary-dark: #17302f;
+    --primary-tint: #dce8e1;
+    --sage: #6d9187;
+    --terracotta: #b85e43;
+    --terracotta-tint: #f3e1da;
+    --gold: #c7a45a;
+    --green: #2f8f5b;
     --red: #c0392b;
-    --yellow: #ffc84a;
-    --sky: #4fb3e0;
-    --pink: #ef6fa0;
     color-scheme: light;
   }
   * { box-sizing: border-box; }
@@ -33,52 +32,75 @@
     color: var(--ink);
     min-height: 100vh;
   }
-  h1, h2, h3 { font-family: "Fredoka", sans-serif; font-weight: 600; margin: 0; }
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; font-weight: 600; margin: 0; }
   em {
-    font-style: normal; color: var(--pink); font-family: "Fredoka", sans-serif; font-weight: 600;
-    text-decoration: underline; text-decoration-style: wavy; text-decoration-color: var(--yellow);
-    text-underline-offset: 4px;
+    font-style: italic; color: var(--terracotta); font-family: "Fraunces", Georgia, serif; font-weight: 500;
+    text-decoration: underline; text-decoration-color: var(--primary); text-decoration-thickness: 3px;
+    text-underline-offset: 5px;
   }
+  .accent { color: var(--terracotta); }
+  .sparkle { color: var(--gold); font-size: 0.9em; }
+
+  /* Space for decorations */
+  .bg-decor { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+  .bg-decor img { position: absolute; opacity: 0.55; }
+  .bg-decor .d-linegraph { top: 40px; left: -30px; width: 200px; }
+  .bg-decor .d-triangle { top: 260px; left: 10px; width: 110px; opacity: 0.4; }
+  .bg-decor .d-equations { top: 90px; left: 140px; width: 180px; opacity: 0.5; }
+  .bg-decor .d-piechart { top: 520px; left: -20px; width: 150px; }
+  .bg-decor .d-cube { top: 720px; left: 20px; width: 130px; opacity: 0.4; }
+  .bg-decor .d-globe { top: 60px; right: -40px; width: 220px; }
+  .bg-decor .d-compass { top: 320px; right: 10px; width: 150px; opacity: 0.5; }
+  .bg-decor .d-pencil { top: 90px; right: 190px; width: 90px; opacity: 0.55; }
+  .bg-decor .d-locationpin { top: 480px; right: 40px; width: 60px; }
+  .bg-decor .d-maproute { top: 650px; right: -30px; width: 220px; opacity: 0.4; }
+  @media (max-width: 980px) { .bg-decor { display: none; } }
+  header.site, main { position: relative; z-index: 1; }
 
   /* Header */
   header.site {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.9rem;
-    padding: 1.75rem 2rem 1.5rem;
-    border-bottom: 1px solid rgba(42,38,32,0.08);
+    gap: 0.7rem;
+    padding: 2.5rem 2rem 1.5rem;
     max-width: 1080px;
     margin: 0 auto;
   }
-  .brand { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
-  .brand .mark {
-    width: 144px; height: 144px; border-radius: 50%;
-    display: block; object-fit: cover;
-    border: 4px solid var(--teal);
-    box-shadow: 0 4px 12px rgba(42,38,32,0.15);
+  .site-title {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
   }
-  .brand .word { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.15rem; }
-  nav.site { display: flex; gap: 1.6rem; }
+  .site-tagline { color: var(--muted); font-size: 1rem; letter-spacing: 0.02em; margin-top: 0.2rem; }
+  .divider { width: 100%; max-width: 640px; height: 1px; background: rgba(34,48,44,0.15); margin: 1.4rem 0; }
+  .brand { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+  .avatar-ring { position: relative; display: inline-block; }
+  .brand .mark {
+    width: 150px; height: 150px; border-radius: 50%;
+    display: block; object-fit: cover; object-position: center 20%;
+    border: 5px solid var(--primary);
+    box-shadow: 0 8px 24px rgba(34,48,44,0.18);
+  }
+  nav.site { display: flex; gap: 1.6rem; margin-top: 1.2rem; flex-wrap: wrap; justify-content: center; }
   nav.site a {
     font-size: 0.92rem; font-weight: 500; color: var(--muted);
     text-decoration: none; cursor: pointer; padding-bottom: 4px;
     border-bottom: 2px solid transparent;
   }
-  nav.site a.active, nav.site a:hover { color: var(--ink); border-color: var(--orange); }
+  nav.site a.active, nav.site a:hover { color: var(--ink); border-color: var(--terracotta); }
 
   main { max-width: 1080px; margin: 0 auto; padding: 0 2rem 4rem; }
-  @media (max-width: 720px) { main { padding: 0 1.25rem 3rem; } header.site { padding: 1.1rem 1.25rem; } }
+  @media (max-width: 720px) { main { padding: 0 1.25rem 3rem; } header.site { padding: 1.75rem 1.25rem 1.25rem; } }
 
   .view { display: none; }
   .view.active { display: block; animation: fadeIn 0.25s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
   /* Hero */
-  .hero-wrap { position: relative; padding-top: 3rem; }
+  .hero-wrap { position: relative; padding-top: 2.5rem; }
   .eyebrow {
-    text-align: center; text-transform: uppercase; letter-spacing: 0.12em;
-    font-size: 0.78rem; font-weight: 600; color: var(--teal);
+    text-align: center; text-transform: uppercase; letter-spacing: 0.14em;
+    font-size: 0.78rem; font-weight: 600; color: var(--primary);
   }
   .hero-title {
     text-align: center; font-size: clamp(2rem, 5.5vw, 3.2rem); line-height: 1.2;
@@ -88,121 +110,67 @@
     text-align: center; color: var(--muted); font-size: 1.08rem;
     max-width: 34rem; margin: 1.1rem auto 0;
   }
-  .doodle {
-    position: absolute; font-size: 1.8rem; opacity: 0.9;
-    animation: floaty 4s ease-in-out infinite;
-    pointer-events: none; user-select: none;
-  }
-  .doodle.d1 { top: -10px; left: 8%; animation-delay: 0s; }
-  .doodle.d2 { top: 10px; right: 10%; font-size: 1.4rem; animation-delay: 0.6s; }
-  .doodle.d3 { bottom: -10px; left: 20%; font-size: 1.3rem; animation-delay: 1.2s; }
-  .doodle.d4 { bottom: 0; right: 20%; animation-delay: 1.8s; }
-  @media (max-width: 640px) { .doodle { display: none; } }
-  @keyframes floaty {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(8deg); }
-  }
 
-  /* Steps */
-  .step { display: flex; align-items: center; gap: 3rem; margin-top: 5rem; }
-  .step.reverse { flex-direction: row-reverse; }
-  .step-text, .step-mock { flex: 1; min-width: 0; }
-  @media (max-width: 800px) {
-    .step, .step.reverse { flex-direction: column; gap: 1.75rem; margin-top: 3.5rem; }
-  }
-  .step-badge {
-    display: inline-block; font-size: 0.85rem; font-weight: 600;
-    background: var(--teal-tint); color: var(--teal-dark);
-    padding: 0.3rem 0.85rem; border-radius: 999px; margin-bottom: 0.9rem;
-  }
-  .step-text h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); line-height: 1.2; }
-  .step-text p { color: var(--muted); font-size: 1rem; line-height: 1.6; margin: 0.9rem 0 1rem; }
-  .checklist { list-style: none; padding: 0; margin: 0; }
-  .checklist li { color: var(--ink); font-size: 0.95rem; margin-bottom: 0.5rem; }
-  .checklist li::before { content: "✓ "; color: var(--teal); font-weight: 700; }
-
-  /* Browser mockup */
-  .mockup {
-    background: var(--panel);
-    border-radius: 16px;
-    box-shadow: 0 20px 45px rgba(42,38,32,0.12);
-    overflow: hidden;
-    border: 1px solid rgba(42,38,32,0.06);
-  }
-  .mockup-bar {
-    display: flex; align-items: center; gap: 0.4rem;
-    background: var(--cream-deep); padding: 0.6rem 0.9rem;
-  }
-  .mockup-bar .dot { width: 9px; height: 9px; border-radius: 50%; }
-  .mockup-bar .dot.r { background: #e58a7a; }
-  .mockup-bar .dot.y { background: #e8c07a; }
-  .mockup-bar .dot.g { background: #8fbf8f; }
-  .mockup-bar .url {
-    flex: 1; text-align: center; font-size: 0.72rem; color: var(--muted);
-  }
-  .mockup-body { padding: 1.4rem; }
-
-  .mock-tiles { display: flex; gap: 0.8rem; }
-  .mock-tile {
-    flex: 1; border-radius: 12px; padding: 1.4rem 0.8rem; text-align: center;
-    font-size: 0.95rem; font-weight: 700; color: #fff;
-  }
-  .mock-tile.a { background: var(--teal); }
-  .mock-tile.b { background: var(--orange); }
-
-  .mock-problem { text-align: center; }
-  .mock-problem .expr { font-family: "Fredoka", sans-serif; font-size: 1.8rem; margin-bottom: 0.8rem; }
-  .mock-answer {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--cream); border-radius: 10px; padding: 0.5rem 0.9rem;
-    font-size: 1rem; font-weight: 600;
-  }
-  .mock-check { color: var(--green); font-weight: 700; margin-top: 0.7rem; font-size: 0.9rem; }
-
-  .mock-stats { display: flex; gap: 0.7rem; }
-  .mock-stat { flex: 1; background: var(--cream); border-radius: 10px; padding: 0.8rem; text-align: center; }
-  .mock-stat.hi { background: var(--teal-tint); }
-  .mock-stat .num { font-family: "Fredoka", sans-serif; font-size: 1.3rem; color: var(--teal-dark); }
-  .mock-stat .lbl { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
-
-  /* CTA band */
-  .cta-band {
-    background: var(--teal-dark); border-radius: 20px; color: #f2ead9;
-    padding: 2.4rem 2.2rem; margin-top: 4.5rem;
-    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
-  }
-  .cta-band h2 { font-size: clamp(1.5rem, 3.6vw, 2rem); color: #fdf8ee; }
-  .cta-band p { margin: 0.5rem 0 0; color: #cfe0d8; }
-  .cta-band button {
-    border: none; background: #fdf8ee; color: var(--teal-dark);
-    padding: 0.85rem 1.6rem; border-radius: 999px; font-weight: 700;
-    font-size: 1rem; cursor: pointer; white-space: nowrap;
-    transition: transform 0.15s ease;
-  }
-  .cta-band button:hover { transform: scale(1.06) rotate(-1deg); }
-  .cta-band button:active { transform: scale(0.95); }
-
-  /* Tiles (launch) */
-  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem; }
-  @media (max-width: 520px) { .tiles { grid-template-columns: 1fr; } }
-  .tile {
-    border-radius: 18px; padding: 2rem 1.2rem; text-align: center;
-    color: #fff; cursor: pointer; border: none; font-size: 1.4rem; font-weight: 700;
-    font-family: "Fredoka", sans-serif;
-    display: flex; align-items: center; justify-content: center;
+  /* Activity cards */
+  .activities { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 3rem; }
+  @media (max-width: 820px) { .activities { grid-template-columns: 1fr; } }
+  .activity-card {
+    position: relative; display: flex; background: var(--panel);
+    border: 1px solid rgba(34,48,44,0.12); border-radius: 18px; overflow: hidden;
+    box-shadow: 0 10px 28px rgba(34,48,44,0.06);
     transition: transform 0.18s ease, box-shadow 0.18s ease;
   }
-  .tile:hover { transform: translateY(-4px) rotate(-1deg) scale(1.03); box-shadow: 0 12px 24px rgba(42,38,32,0.18); }
-  .tile:active { transform: scale(0.96); }
-  .tile.math { background: var(--teal); }
-  .tile.gk { background: var(--orange); }
+  .activity-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(34,48,44,0.14); }
+  .activity-icon-block {
+    width: 96px; flex-shrink: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between; padding: 1.2rem 0.6rem; color: #fff;
+  }
+  .activity-icon-block.math { background: var(--primary); }
+  .activity-icon-block.geo { background: var(--sage); }
+  .activity-icon-block.gk { background: var(--terracotta); }
+  .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .calc-grid span {
+    width: 20px; height: 20px; border-radius: 5px; background: rgba(255,255,255,0.22);
+    display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700;
+  }
+  .activity-icon-block img.main-icon { width: 36px; }
+  .activity-icon-block img.deco-icon { width: 44px; filter: brightness(0) invert(1); opacity: 0.9; }
+  .activity-content { flex: 1; padding: 1.3rem 1.1rem; }
+  .activity-content h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+  .activity-content p { color: var(--muted); font-size: 0.9rem; line-height: 1.55; margin: 0; padding-right: 2.2rem; }
+  .activity-arrow {
+    position: absolute; bottom: 0.9rem; right: 0.9rem; width: 36px; height: 36px;
+    border-radius: 50%; background: none; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1.05rem; border: 2px solid var(--primary); color: var(--primary);
+    transition: transform 0.15s ease;
+  }
+  .activity-card.geo .activity-arrow { border-color: var(--sage); color: var(--sage); }
+  .activity-card.gk .activity-arrow { border-color: var(--terracotta); color: var(--terracotta); }
+  .activity-arrow:hover { transform: scale(1.1); }
 
-  /* App cards (Math / GK) */
+  /* Step / feature row */
+  .step-info { display: flex; gap: 3rem; margin-top: 5rem; align-items: flex-start; }
+  @media (max-width: 860px) { .step-info { flex-direction: column; gap: 2rem; } }
+  .step-text { flex: 0 0 260px; }
+  .step-badge {
+    display: inline-block; font-size: 0.85rem; font-weight: 600;
+    background: var(--primary-tint); color: var(--primary-dark);
+    padding: 0.3rem 0.85rem; border-radius: 999px; margin-bottom: 0.9rem;
+  }
+  .step-text h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); line-height: 1.2; }
+  .step-text p { color: var(--muted); font-size: 0.98rem; line-height: 1.6; margin: 0.9rem 0 0; }
+  .feature-row { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
+  @media (max-width: 600px) { .feature-row { grid-template-columns: 1fr 1fr; } }
+  .feature img { width: 34px; margin-bottom: 0.6rem; }
+  .feature h4 { font-size: 1rem; margin-bottom: 0.35rem; font-family: "Fraunces", serif; font-weight: 600; }
+  .feature p { color: var(--muted); font-size: 0.85rem; line-height: 1.5; margin: 0; }
+
+  /* App card */
   .card {
     background: var(--panel);
     border-radius: 20px;
     padding: 1.9rem;
-    box-shadow: 0 10px 28px rgba(42,38,32,0.08);
+    box-shadow: 0 10px 28px rgba(34,48,44,0.08);
     margin: 2.5rem auto 0;
     max-width: 640px;
   }
@@ -210,30 +178,30 @@
 
   .controls { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.4rem; justify-content: center; }
   select {
-    padding: 0.5rem 0.8rem; border-radius: 10px; border: 1px solid rgba(42,38,32,0.15);
+    padding: 0.5rem 0.8rem; border-radius: 10px; border: 1px solid rgba(34,48,44,0.18);
     background: #fff; font-size: 0.95rem; color: var(--ink); font-family: inherit;
   }
 
   .stats { display: flex; justify-content: center; gap: 1.7rem; margin-bottom: 1.1rem; font-size: 0.92rem; color: var(--muted); }
-  .stats b { color: var(--teal-dark); font-size: 1.15rem; font-family: "Fredoka", sans-serif; }
+  .stats b { color: var(--primary-dark); font-size: 1.15rem; font-family: "Fraunces", serif; }
 
   .problem {
-    text-align: center; font-family: "Fredoka", sans-serif;
+    text-align: center; font-family: "Fraunces", serif;
     font-size: clamp(2rem, 8vw, 2.7rem); font-weight: 600;
-    margin: 1rem 0 1.6rem; color: var(--teal-dark);
+    margin: 1rem 0 1.6rem; color: var(--primary-dark);
   }
   .answer-row { display: flex; gap: 0.6rem; justify-content: center; }
   .answer-row input {
     width: 8rem; font-size: 1.4rem; text-align: center; padding: 0.6rem;
-    border-radius: 12px; border: 2px solid rgba(42,38,32,0.15); font-family: inherit;
+    border-radius: 12px; border: 2px solid rgba(34,48,44,0.18); font-family: inherit;
   }
-  .answer-row input:focus { outline: none; border-color: var(--teal); }
+  .answer-row input:focus { outline: none; border-color: var(--primary); }
   button.primary {
     border: none; padding: 0.7rem 1.4rem; border-radius: 999px;
-    font-size: 1.05rem; font-weight: 700; color: #fff; background: var(--teal); cursor: pointer;
+    font-size: 1.05rem; font-weight: 700; color: #fff; background: var(--primary); cursor: pointer;
     transition: transform 0.15s ease, background 0.15s ease;
   }
-  button.primary:hover { background: var(--teal-dark); transform: scale(1.05); }
+  button.primary:hover { background: var(--primary-dark); transform: scale(1.05); }
   button.primary:active { transform: scale(0.95); }
   .feedback { text-align: center; margin-top: 1rem; font-size: 1.05rem; font-weight: 600; min-height: 1.6rem; }
   .feedback.correct { color: var(--green); }
@@ -243,26 +211,26 @@
   .options { display: grid; gap: 0.7rem; }
   .opt {
     text-align: left; padding: 0.8rem 1rem; border-radius: 12px;
-    border: 2px solid rgba(42,38,32,0.12); background: #fff;
+    border: 2px solid rgba(34,48,44,0.14); background: #fff;
     font-size: 1rem; cursor: pointer; font-family: inherit; color: var(--ink);
     transition: transform 0.12s ease, border-color 0.12s ease;
   }
-  .opt:hover:not([disabled]) { border-color: var(--teal); transform: translateX(3px); }
-  .opt.correct { background: var(--teal-tint); border-color: var(--green); animation: pop 0.3s ease; }
-  .opt.wrong { background: #fbe4e0; border-color: var(--red); }
+  .opt:hover:not([disabled]) { border-color: var(--primary); transform: translateX(3px); }
+  .opt.correct { background: var(--primary-tint); border-color: var(--green); animation: pop 0.3s ease; }
+  .opt.wrong { background: var(--terracotta-tint); border-color: var(--red); }
   .opt[disabled] { cursor: default; }
   @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.04); } 100% { transform: scale(1); } }
 
   .next-row { text-align: center; margin-top: 1.25rem; }
   .topic-tag {
     display: inline-block; font-size: 0.72rem; text-transform: uppercase;
-    letter-spacing: 0.06em; color: var(--teal-dark); background: var(--teal-tint);
+    letter-spacing: 0.06em; color: var(--primary-dark); background: var(--primary-tint);
     padding: 0.2rem 0.7rem; border-radius: 999px; margin-bottom: 0.9rem;
   }
   .star-rating { text-align: center; font-size: 2rem; margin: 0.6rem 0; letter-spacing: 0.2rem; }
   .streak-toast {
     position: fixed; left: 50%; bottom: 2rem; transform: translateX(-50%) translateY(20px);
-    background: var(--teal-dark); color: #fdf8ee; font-family: "Fredoka", sans-serif;
+    background: var(--primary-dark); color: #fdf8ee; font-family: "Fraunces", serif;
     font-weight: 600; padding: 0.7rem 1.3rem; border-radius: 999px;
     box-shadow: 0 10px 24px rgba(0,0,0,0.2); opacity: 0; transition: all 0.3s ease; z-index: 10;
     pointer-events: none;
@@ -280,14 +248,36 @@
 </head>
 <body>
 
+<div class="bg-decor">
+  <img class="d-linegraph" src="assets/line_graph.svg" alt="">
+  <img class="d-triangle" src="assets/triangle.svg" alt="">
+  <img class="d-equations" src="assets/equations.svg" alt="">
+  <img class="d-piechart" src="assets/pie_chart.svg" alt="">
+  <img class="d-cube" src="assets/cube.svg" alt="">
+  <img class="d-globe" src="assets/globe.svg" alt="">
+  <img class="d-compass" src="assets/compass.svg" alt="">
+  <img class="d-pencil" src="assets/pencil.svg" alt="">
+  <img class="d-locationpin" src="assets/location_pin.svg" alt="">
+  <img class="d-maproute" src="assets/map_route.svg" alt="">
+</div>
+
 <header class="site">
+  <div class="site-title">
+    <span class="sparkle">✦</span>
+    <h1>Priya's <span class="accent">Math Lab</span></h1>
+    <span class="sparkle">✦</span>
+  </div>
+  <p class="site-tagline">Think. Explore. Solve.</p>
+  <div class="divider"></div>
   <div class="brand">
-    <span class="word">Priya's Corner</span>
-    <img class="mark" src="priya-avatar.png" alt="Priya">
+    <span class="avatar-ring">
+      <img class="mark" src="priya-avatar.png" alt="Priya">
+    </span>
   </div>
   <nav class="site">
     <a class="nav-btn active" data-view="home">How it works</a>
     <a class="nav-btn" data-view="math">Math</a>
+    <a class="nav-btn" data-view="geography">Geography</a>
     <a class="nav-btn" data-view="gk">General Knowledge</a>
   </nav>
 </header>
@@ -297,98 +287,77 @@
   <!-- HOME -->
   <section id="home" class="view active">
     <div class="hero-wrap">
-      <span class="doodle d1">⭐</span>
-      <span class="doodle d2">🎈</span>
-      <span class="doodle d3">✨</span>
-      <span class="doodle d4">🌈</span>
-      <div class="eyebrow">Learning Corner</div>
+      <div class="eyebrow"><span class="sparkle">✦</span> Learning Corner <span class="sparkle">✦</span></div>
       <h1 class="hero-title">Learn, play, and <em>grow</em> — one step at a time.</h1>
-      <p class="hero-sub">Two fun activities. No sign-in needed. Everything happens right here in your browser.</p>
+      <p class="hero-sub">Three exciting areas to explore. Everything happens right here in your browser.</p>
     </div>
 
-    <div class="step">
+    <div class="activities">
+      <div class="activity-card math">
+        <div class="activity-icon-block math">
+          <div class="calc-grid"><span>+</span><span>−</span><span>×</span><span>÷</span></div>
+          <img class="deco-icon" src="assets/triangle.svg" alt="">
+        </div>
+        <div class="activity-content">
+          <h3>Math</h3>
+          <p>Solve problems.<br>Build confidence.<br>Sharpen your skills.</p>
+        </div>
+        <button class="activity-arrow" data-view="math">→</button>
+      </div>
+
+      <div class="activity-card geo">
+        <div class="activity-icon-block geo">
+          <img class="main-icon" src="assets/globe.svg" alt="" style="filter: brightness(0) invert(1);">
+          <img class="deco-icon" src="assets/mountains.svg" alt="">
+        </div>
+        <div class="activity-content">
+          <h3>Geography</h3>
+          <p>Explore places.<br>Understand the world.<br>Discover connections.</p>
+        </div>
+        <button class="activity-arrow" data-view="geography">→</button>
+      </div>
+
+      <div class="activity-card gk">
+        <div class="activity-icon-block gk">
+          <img class="main-icon" src="assets/brain_book.svg" alt="" style="filter: brightness(0) invert(1);">
+          <img class="deco-icon" src="assets/temple.svg" alt="">
+        </div>
+        <div class="activity-content">
+          <h3>General Knowledge</h3>
+          <p>Learn amazing facts.<br>Stay curious.<br>Think beyond.</p>
+        </div>
+        <button class="activity-arrow" data-view="gk">→</button>
+      </div>
+    </div>
+
+    <div class="step-info">
       <div class="step-text">
         <span class="step-badge">Step 01</span>
-        <h2>Pick an activity</h2>
-        <p>Choose Math Practice to sharpen your number skills, or General Knowledge to explore fun facts about the world.</p>
-        <ul class="checklist">
-          <li>Math practice with 4 operations</li>
-          <li>General Knowledge quiz</li>
-          <li>New questions every time you play</li>
-        </ul>
+        <h2>Pick an area</h2>
+        <p>Choose any topic above to begin your learning adventure. Each area has fun activities and challenges for you.</p>
       </div>
-      <div class="step-mock">
-        <div class="mockup">
-          <div class="mockup-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">rukminipriya.in</span></div>
-          <div class="mockup-body">
-            <div class="mock-tiles">
-              <div class="mock-tile a">Math</div>
-              <div class="mock-tile b">GK</div>
-            </div>
-          </div>
+      <div class="feature-row">
+        <div class="feature">
+          <img src="assets/target.svg" alt="">
+          <h4>Practice</h4>
+          <p>Interactive activities to build strong concepts.</p>
+        </div>
+        <div class="feature">
+          <img src="assets/puzzle.svg" alt="">
+          <h4>Explore</h4>
+          <p>Discover new ideas and real-world examples.</p>
+        </div>
+        <div class="feature">
+          <img src="assets/progress_chart.svg" alt="">
+          <h4>Track</h4>
+          <p>See your progress and celebrate your achievements.</p>
+        </div>
+        <div class="feature">
+          <img src="assets/trophy.svg" alt="">
+          <h4>Achieve</h4>
+          <p>Complete challenges and earn badges along the way.</p>
         </div>
       </div>
-    </div>
-
-    <div class="step reverse">
-      <div class="step-text">
-        <span class="step-badge">Step 02</span>
-        <h2>Answer &amp; get instant feedback</h2>
-        <p>Solve the problem or pick an answer. You'll know right away if you got it right — and if not, you'll see the correct answer so you can learn from it.</p>
-        <ul class="checklist">
-          <li>Instant right / wrong feedback</li>
-          <li>Correct answer shown when you miss one</li>
-          <li>No pressure — go at your own pace</li>
-        </ul>
-      </div>
-      <div class="step-mock">
-        <div class="mockup">
-          <div class="mockup-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">rukminipriya.in</span></div>
-          <div class="mockup-body mock-problem">
-            <div class="expr">7 × 8 = ?</div>
-            <span class="mock-answer">56</span>
-            <div class="mock-check">✓ Correct! 🎉</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="step">
-      <div class="step-text">
-        <span class="step-badge">Step 03</span>
-        <h2>Track your score</h2>
-        <p>Watch your score and streak grow as you play. Your best score is saved automatically, so you can come back anytime and try to beat it.</p>
-        <ul class="checklist">
-          <li>Score &amp; streak counter</li>
-          <li>Best score saved automatically</li>
-          <li>Come back anytime to beat your record</li>
-        </ul>
-      </div>
-      <div class="step-mock">
-        <div class="mockup">
-          <div class="mockup-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">rukminipriya.in</span></div>
-          <div class="mockup-body">
-            <div class="mock-stats">
-              <div class="mock-stat"><div class="num">12</div><div class="lbl">Score</div></div>
-              <div class="mock-stat hi"><div class="num">9</div><div class="lbl">Streak</div></div>
-              <div class="mock-stat"><div class="num">15</div><div class="lbl">Best</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cta-band">
-      <div>
-        <h2>Ready to play and learn?</h2>
-        <p>Takes 10 seconds. No sign-in. Just for fun.</p>
-      </div>
-      <button id="startBtn">Start Learning →</button>
-    </div>
-
-    <div class="tiles">
-      <button class="tile math" data-view="math">Math</button>
-      <button class="tile gk" data-view="gk">GK</button>
     </div>
   </section>
 
@@ -424,6 +393,24 @@
     </div>
   </section>
 
+  <!-- GEOGRAPHY -->
+  <section id="geography" class="view">
+    <div class="card">
+      <h2>Geography</h2>
+      <div class="stats">
+        <div>Question <b id="geoNum">1</b>/<span id="geoTotal">10</span></div>
+        <div>Score <b id="geoScore">0</b></div>
+        <div>Best <b id="geoBest">0</b></div>
+      </div>
+      <div class="topic-tag" id="geoTopic">Geography</div>
+      <div class="question" id="geoQuestion">Loading...</div>
+      <div class="options" id="geoOptions"></div>
+      <div class="next-row">
+        <button class="primary" id="geoNext" style="display:none;">Next Question →</button>
+      </div>
+    </div>
+  </section>
+
   <!-- GK -->
   <section id="gk" class="view">
     <div class="card">
@@ -453,12 +440,10 @@ function showView(name) {
   navBtns.forEach(b => b.classList.toggle('active', b.dataset.view === name));
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (name === 'gk' && !gkStarted) startGK();
+  if (name === 'geography' && !geoStarted) startGeo();
 }
 document.querySelectorAll('[data-view]').forEach(el => {
   el.addEventListener('click', () => showView(el.dataset.view));
-});
-document.getElementById('startBtn').addEventListener('click', () => {
-  document.querySelector('.tiles').scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 
 // ---------- Math Practice ----------
@@ -578,13 +563,119 @@ mathOpSel.addEventListener('change', newProblem);
 mathLevelSel.addEventListener('change', newProblem);
 newProblem();
 
-// ---------- General Knowledge ----------
-const gkBank = [
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = rand(0, i);
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ---------- Generic quiz engine (used by Geography & General Knowledge) ----------
+function makeQuiz(cfg) {
+  let questions = [], index = 0, score = 0, started = false;
+  let best = Number(localStorage.getItem(cfg.storeKey) || 0);
+  cfg.bestEl.textContent = best;
+  cfg.totalEl.textContent = cfg.len;
+
+  function start() {
+    started = true;
+    questions = shuffle(cfg.bank).slice(0, cfg.len);
+    index = 0;
+    score = 0;
+    cfg.scoreEl.textContent = score;
+    render();
+  }
+
+  function render() {
+    if (index >= questions.length) {
+      cfg.topicEl.textContent = 'Done';
+      const pct = score / questions.length;
+      const starCount = pct >= 0.9 ? 3 : pct >= 0.6 ? 2 : 1;
+      const stars = '⭐'.repeat(starCount) + '☆'.repeat(3 - starCount);
+      cfg.questionEl.innerHTML = `Quiz complete! 🎉<br>You scored <b>${score}/${questions.length}</b>`;
+      cfg.optionsEl.innerHTML = `<div class="star-rating">${stars}</div>`;
+      if (score > best) {
+        best = score;
+        localStorage.setItem(cfg.storeKey, best);
+        cfg.bestEl.textContent = best;
+      }
+      cfg.nextBtn.textContent = 'Play Again';
+      cfg.nextBtn.style.display = 'inline-block';
+      cfg.nextBtn.onclick = start;
+      return;
+    }
+    const item = questions[index];
+    cfg.numEl.textContent = index + 1;
+    cfg.topicEl.textContent = item.topic;
+    cfg.questionEl.textContent = item.q;
+    cfg.optionsEl.innerHTML = '';
+    cfg.nextBtn.style.display = 'none';
+
+    item.options.forEach((optText, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'opt';
+      btn.textContent = optText;
+      btn.addEventListener('click', () => select(i, item));
+      cfg.optionsEl.appendChild(btn);
+    });
+  }
+
+  function select(choice, item) {
+    const btns = cfg.optionsEl.querySelectorAll('.opt');
+    btns.forEach((b, i) => {
+      b.disabled = true;
+      if (i === item.a) b.classList.add('correct');
+      else if (i === choice) b.classList.add('wrong');
+    });
+    if (choice === item.a) {
+      score++;
+      const rect = btns[choice].getBoundingClientRect();
+      confettiBurst(rect.left + rect.width / 2, rect.top);
+    }
+    cfg.scoreEl.textContent = score;
+    cfg.nextBtn.textContent = 'Next Question →';
+    cfg.nextBtn.style.display = 'inline-block';
+    cfg.nextBtn.onclick = () => { index++; render(); };
+  }
+
+  return { start, isStarted: () => started };
+}
+
+// ---------- Geography ----------
+const geoBank = [
   { topic: 'Geography', q: 'What is the capital of India?', options: ['Mumbai', 'New Delhi', 'Kolkata', 'Chennai'], a: 1 },
   { topic: 'Geography', q: 'Which is the largest continent by area?', options: ['Africa', 'Asia', 'Europe', 'Australia'], a: 1 },
   { topic: 'Geography', q: 'Which river is the longest in the world?', options: ['Amazon', 'Ganga', 'Nile', 'Yangtze'], a: 2 },
   { topic: 'Geography', q: 'Mount Everest is located in which mountain range?', options: ['Alps', 'Andes', 'Himalayas', 'Rockies'], a: 2 },
   { topic: 'Geography', q: 'Which is the smallest country in the world?', options: ['Monaco', 'Vatican City', 'Malta', 'Nauru'], a: 1 },
+  { topic: 'Geography', q: 'Which is the largest ocean on Earth?', options: ['Atlantic Ocean', 'Indian Ocean', 'Pacific Ocean', 'Arctic Ocean'], a: 2 },
+  { topic: 'Geography', q: 'Which is the largest hot desert in the world?', options: ['Gobi', 'Sahara', 'Thar', 'Kalahari'], a: 1 },
+  { topic: 'Geography', q: 'How many continents are there?', options: ['5', '6', '7', '8'], a: 2 },
+  { topic: 'Geography', q: 'Which country is known as the Land of the Rising Sun?', options: ['China', 'Japan', 'Thailand', 'South Korea'], a: 1 },
+  { topic: 'Geography', q: 'Which is the longest mountain range in the world?', options: ['Himalayas', 'Rockies', 'The Andes', 'Alps'], a: 2 },
+  { topic: 'Geography', q: 'Which is the smallest continent?', options: ['Europe', 'Australia', 'Antarctica', 'South America'], a: 1 },
+  { topic: 'Geography', q: 'Which country is home to the Great Wall?', options: ['Japan', 'India', 'China', 'Mongolia'], a: 2 },
+  { topic: 'Geography', q: 'What is the capital of France?', options: ['Paris', 'Lyon', 'Marseille', 'Nice'], a: 0 },
+  { topic: 'Geography', q: 'What is the capital of Japan?', options: ['Osaka', 'Kyoto', 'Tokyo', 'Yokohama'], a: 2 },
+  { topic: 'Geography', q: 'Which is the tallest mountain in the world?', options: ['K2', 'Mount Everest', 'Kangchenjunga', 'Makalu'], a: 1 },
+  { topic: 'Geography', q: 'Which country is shaped like a boot?', options: ['Spain', 'Greece', 'Italy', 'Portugal'], a: 2 },
+  { topic: 'Geography', q: 'Which is the largest island in the world?', options: ['Madagascar', 'Greenland', 'Borneo', 'New Guinea'], a: 1 },
+  { topic: 'Geography', q: 'Which imaginary line divides the Earth into Northern and Southern hemispheres?', options: ['Prime Meridian', 'Tropic of Cancer', 'The Equator', 'Arctic Circle'], a: 2 },
+];
+const geoQuiz = makeQuiz({
+  bank: geoBank, len: 10, storeKey: 'rp_geo_best',
+  bestEl: document.getElementById('geoBest'), totalEl: document.getElementById('geoTotal'),
+  scoreEl: document.getElementById('geoScore'), numEl: document.getElementById('geoNum'),
+  topicEl: document.getElementById('geoTopic'), questionEl: document.getElementById('geoQuestion'),
+  optionsEl: document.getElementById('geoOptions'), nextBtn: document.getElementById('geoNext'),
+});
+let geoStarted = false;
+function startGeo() { geoStarted = true; geoQuiz.start(); }
+
+// ---------- General Knowledge ----------
+const gkBank = [
   { topic: 'Science', q: 'How many planets are there in our solar system?', options: ['7', '8', '9', '10'], a: 1 },
   { topic: 'Science', q: 'Which planet is known as the Red Planet?', options: ['Venus', 'Jupiter', 'Mars', 'Saturn'], a: 2 },
   { topic: 'Science', q: 'What gas do plants absorb from the air to make food?', options: ['Oxygen', 'Carbon dioxide', 'Nitrogen', 'Hydrogen'], a: 1 },
@@ -611,90 +702,15 @@ const gkBank = [
   { topic: 'General', q: 'What do we call a baby dog?', options: ['Kitten', 'Cub', 'Puppy', 'Calf'], a: 2 },
   { topic: 'General', q: 'Which is the closest star to Earth?', options: ['Sirius', 'Proxima Centauri', 'The Sun', 'Polaris'], a: 2 },
 ];
-
-const GK_QUIZ_LEN = 10;
-let gkQuestions = [], gkIndex = 0, gkScore = 0, gkStarted = false;
-const gkQuestionEl = document.getElementById('gkQuestion');
-const gkOptionsEl = document.getElementById('gkOptions');
-const gkTopicEl = document.getElementById('gkTopic');
-const gkNumEl = document.getElementById('gkNum');
-const gkTotalEl = document.getElementById('gkTotal');
-const gkScoreEl = document.getElementById('gkScore');
-const gkBestEl = document.getElementById('gkBest');
-const gkNextBtn = document.getElementById('gkNext');
-let gkBest = Number(localStorage.getItem('rp_gk_best') || 0);
-gkBestEl.textContent = gkBest;
-gkTotalEl.textContent = GK_QUIZ_LEN;
-
-function shuffle(arr) {
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = rand(0, i);
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-function startGK() {
-  gkStarted = true;
-  gkQuestions = shuffle(gkBank).slice(0, GK_QUIZ_LEN);
-  gkIndex = 0;
-  gkScore = 0;
-  gkScoreEl.textContent = gkScore;
-  renderGK();
-}
-
-function renderGK() {
-  if (gkIndex >= gkQuestions.length) {
-    gkTopicEl.textContent = 'Done';
-    const pct = gkScore / gkQuestions.length;
-    const starCount = pct >= 0.9 ? 3 : pct >= 0.6 ? 2 : 1;
-    const stars = '⭐'.repeat(starCount) + '☆'.repeat(3 - starCount);
-    gkQuestionEl.innerHTML = `Quiz complete! 🎉<br>You scored <b>${gkScore}/${gkQuestions.length}</b>`;
-    gkOptionsEl.innerHTML = `<div class="star-rating">${stars}</div>`;
-    if (gkScore > gkBest) {
-      gkBest = gkScore;
-      localStorage.setItem('rp_gk_best', gkBest);
-      gkBestEl.textContent = gkBest;
-    }
-    gkNextBtn.textContent = 'Play Again';
-    gkNextBtn.style.display = 'inline-block';
-    gkNextBtn.onclick = startGK;
-    return;
-  }
-  const item = gkQuestions[gkIndex];
-  gkNumEl.textContent = gkIndex + 1;
-  gkTopicEl.textContent = item.topic;
-  gkQuestionEl.textContent = item.q;
-  gkOptionsEl.innerHTML = '';
-  gkNextBtn.style.display = 'none';
-
-  item.options.forEach((optText, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'opt';
-    btn.textContent = optText;
-    btn.addEventListener('click', () => selectGK(i, item));
-    gkOptionsEl.appendChild(btn);
-  });
-}
-
-function selectGK(choice, item) {
-  const btns = gkOptionsEl.querySelectorAll('.opt');
-  btns.forEach((b, i) => {
-    b.disabled = true;
-    if (i === item.a) b.classList.add('correct');
-    else if (i === choice) b.classList.add('wrong');
-  });
-  if (choice === item.a) {
-    gkScore++;
-    const rect = btns[choice].getBoundingClientRect();
-    confettiBurst(rect.left + rect.width / 2, rect.top);
-  }
-  gkScoreEl.textContent = gkScore;
-  gkNextBtn.textContent = 'Next Question →';
-  gkNextBtn.style.display = 'inline-block';
-  gkNextBtn.onclick = () => { gkIndex++; renderGK(); };
-}
+const gkQuiz = makeQuiz({
+  bank: gkBank, len: 10, storeKey: 'rp_gk_best',
+  bestEl: document.getElementById('gkBest'), totalEl: document.getElementById('gkTotal'),
+  scoreEl: document.getElementById('gkScore'), numEl: document.getElementById('gkNum'),
+  topicEl: document.getElementById('gkTopic'), questionEl: document.getElementById('gkQuestion'),
+  optionsEl: document.getElementById('gkOptions'), nextBtn: document.getElementById('gkNext'),
+});
+let gkStarted = false;
+function startGK() { gkStarted = true; gkQuiz.start(); }
 </script>
 </body>
 </html>
