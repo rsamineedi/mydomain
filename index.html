@@ -6,7 +6,7 @@
 <title>Priya's Math Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #f4f0e7;
@@ -88,6 +88,33 @@
     border-bottom: 2px solid transparent;
   }
   nav.site a.active, nav.site a:hover { color: var(--ink); border-color: var(--terracotta); }
+  nav.site { justify-content: center; margin: 0 auto 2rem; max-width: 1080px; padding-top: 1.5rem; }
+
+  /* Top-level tabs */
+  .top-tabs { display: flex; justify-content: center; gap: 0.7rem; margin-top: 1.4rem; position: relative; z-index: 1; }
+  .top-tab {
+    border: 1px solid rgba(34,48,44,0.15); background: var(--panel); color: var(--muted);
+    font-family: "Fraunces", serif; font-weight: 600; font-size: 1.02rem;
+    padding: 0.55rem 1.5rem; border-radius: 999px; cursor: pointer; transition: all 0.15s ease;
+  }
+  .top-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .top-panel { display: none; }
+  .top-panel.active { display: block; }
+
+  /* Articles */
+  .article-list { max-width: 640px; margin: 2rem auto 0; display: flex; flex-direction: column; gap: 1.2rem; position: relative; z-index: 1; }
+  .article-card {
+    background: var(--panel); border: 1px solid rgba(34,48,44,0.12); border-radius: 18px;
+    padding: 1.6rem 1.7rem; box-shadow: 0 10px 28px rgba(34,48,44,0.06);
+  }
+  .article-tag {
+    display: inline-block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--terracotta); background: var(--terracotta-tint); padding: 0.2rem 0.7rem;
+    border-radius: 999px; margin-bottom: 0.7rem; font-weight: 600;
+  }
+  .article-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+  .article-excerpt { color: var(--muted); font-size: 0.95rem; line-height: 1.6; margin: 0 0 0.8rem; }
+  .article-status { font-size: 0.8rem; color: var(--muted); font-style: italic; }
 
   main { max-width: 1080px; margin: 0 auto; padding: 0 2rem 4rem; }
   @media (max-width: 720px) { main { padding: 0 1.25rem 3rem; } header.site { padding: 1.75rem 1.25rem 1.25rem; } }
@@ -244,6 +271,100 @@
     0% { transform: translate(0, 0) rotate(0deg) scale(0.6); opacity: 1; }
     100% { transform: var(--end, translate(0, -120px)) rotate(360deg) scale(1); opacity: 0; }
   }
+
+  /* Sync / login bar */
+  .sync-bar {
+    display: flex; align-items: center; justify-content: center; gap: 0.8rem; flex-wrap: wrap;
+    max-width: 700px; margin: 1.2rem auto 0; padding: 0.6rem 1rem;
+    background: var(--panel); border: 1px solid rgba(34,48,44,0.12); border-radius: 999px;
+    font-size: 0.85rem; color: var(--muted); position: relative; z-index: 1;
+  }
+  .sync-form { display: flex; gap: 0.5rem; }
+  .sync-form input {
+    width: 6.5rem; padding: 0.35rem 0.6rem; border-radius: 999px;
+    border: 1px solid rgba(34,48,44,0.2); background: var(--cream); color: var(--ink);
+    font-family: inherit; font-size: 0.85rem; text-align: center;
+  }
+  .sync-form input#syncName { width: 8rem; text-align: left; }
+  .sync-btn {
+    border: none; padding: 0.35rem 0.9rem; border-radius: 999px; font-weight: 700;
+    font-size: 0.85rem; cursor: pointer; background: var(--primary); color: #fff;
+    font-family: inherit;
+  }
+  .sync-btn.ghost { background: none; border: 1px solid rgba(34,48,44,0.25); color: var(--muted); }
+  .sync-error { color: var(--red); font-size: 0.8rem; width: 100%; text-align: center; }
+
+  /* Scoreboard / Past Trials */
+  .results-widget { max-width: 640px; margin: 1.25rem auto 0; }
+  .results-tabs { display: flex; justify-content: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .results-tab {
+    border: none; background: none; color: var(--muted); font-family: inherit;
+    font-size: 0.9rem; font-weight: 600; cursor: pointer; padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+  }
+  .results-tab.active { background: var(--primary-tint); color: var(--primary-dark); }
+  .results-body {
+    background: var(--panel); border-radius: 16px; padding: 1rem 1.25rem;
+    box-shadow: 0 8px 20px rgba(34,48,44,0.06);
+  }
+  .results-empty { text-align: center; color: var(--muted); font-size: 0.92rem; margin: 0.5rem 0; }
+  .board-list { list-style: none; margin: 0; padding: 0; }
+  .board-list li {
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 0.5rem 0.2rem; border-bottom: 1px solid rgba(34,48,44,0.08);
+    font-size: 0.92rem;
+  }
+  .board-list li:last-child { border-bottom: none; }
+  .board-list .rank { color: var(--muted); font-weight: 700; width: 2rem; }
+  .board-list .name { flex: 1; font-weight: 600; }
+  .board-list .score { color: var(--primary-dark); font-weight: 700; font-family: "Fraunces", serif; }
+  .trial-row { cursor: pointer; }
+  .trial-row:hover { background: var(--primary-tint); border-radius: 8px; }
+  .trial-row .chevron { color: var(--muted); font-size: 0.9rem; }
+
+  /* Answer sheet modal (real school worksheet look) */
+  .sheet-modal { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+  .sheet-modal[hidden] { display: none; }
+  .sheet-backdrop { position: absolute; inset: 0; background: rgba(10,10,20,0.65); }
+  .sheet-paper {
+    position: relative; z-index: 1; width: 100%; max-width: 480px; max-height: 85vh; overflow-y: auto;
+    background: #fdfaf0;
+    background-image: repeating-linear-gradient(to bottom, transparent 0 33px, rgba(90,120,200,0.2) 33px 34px);
+    background-position: 0 78px;
+    border-radius: 10px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+    padding: 2rem 1.5rem 1.75rem 3.1rem;
+    color: #2a2620;
+  }
+  .sheet-paper::before {
+    content: ''; position: absolute; top: 0; bottom: 0; left: 2.3rem; width: 2px; background: rgba(200,60,60,0.35);
+  }
+  .sheet-close {
+    position: absolute; top: 0.7rem; right: 0.8rem; width: 30px; height: 30px; border-radius: 50%;
+    border: none; background: rgba(0,0,0,0.08); color: #2a2620; font-size: 1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; z-index: 2;
+  }
+  .sheet-stamp {
+    position: absolute; top: 1.3rem; right: 3.6rem;
+    width: 62px; height: 62px; border-radius: 50%; border: 3px solid #c0392b;
+    color: #c0392b; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1.05rem; transform: rotate(-9deg);
+    font-family: "Patrick Hand", cursive;
+  }
+  .sheet-header h3 { font-family: "Fraunces", Georgia, serif; font-size: 1.25rem; margin: 0 0 0.5rem; color: #1a1712; max-width: 65%; }
+  .sheet-meta { display: flex; flex-direction: column; gap: 0.15rem; font-size: 0.92rem; color: #5a5248; margin-bottom: 0.6rem; }
+  .sheet-rule { border-top: 2px solid #2a2620; opacity: 0.35; margin: 0.5rem 0 1.1rem; }
+  .sheet-questions { list-style: none; margin: 0; padding: 0; }
+  .sheet-questions li { margin-bottom: 1.15rem; }
+  .sheet-q-line { font-family: "Fraunces", Georgia, serif; font-size: 1rem; color: #1a1712; line-height: 1.4; }
+  .sheet-q-num { font-weight: 700; margin-right: 0.3rem; }
+  .sheet-a-line { margin-top: 0.3rem; padding-left: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+  .sheet-mark { font-size: 1.3rem; font-family: "Patrick Hand", cursive; }
+  .sheet-mark.ok { color: #2f8f5b; }
+  .sheet-mark.bad { color: #c0392b; }
+  .sheet-answer-text { font-family: "Patrick Hand", cursive; font-size: 1.3rem; color: #24405c; }
+  .sheet-answer-text.struck { text-decoration: line-through; text-decoration-color: #c0392b; text-decoration-thickness: 2px; color: #8a8378; }
+  .sheet-correction { padding-left: 1.5rem; margin-top: 0.2rem; font-family: "Patrick Hand", cursive; font-size: 1.15rem; color: #c0392b; }
 </style>
 </head>
 <body>
@@ -274,13 +395,44 @@
       <img class="mark" src="priya-avatar.png" alt="Priya">
     </span>
   </div>
+  <nav class="top-tabs">
+    <button class="top-tab active" data-toptab="articles">Articles</button>
+    <button class="top-tab" data-toptab="tests">Tests</button>
+  </nav>
+</header>
+
+<div class="sync-bar" id="syncBar">
+  <span class="sync-status" id="syncStatus">Playing on this device only.</span>
+  <form id="syncForm" class="sync-form">
+    <input type="text" id="syncName" placeholder="Your name" maxlength="24" autocomplete="off">
+    <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="syncPin" placeholder="4-digit PIN" autocomplete="off">
+    <button type="submit" class="sync-btn">Login</button>
+  </form>
+  <button id="syncLogout" class="sync-btn ghost" style="display:none;">Logout</button>
+</div>
+
+<div id="articlesPanel" class="top-panel active">
+  <div class="eyebrow"><span class="sparkle">✦</span> Blog <span class="sparkle">✦</span></div>
+  <h2 class="page-title">Articles</h2>
+  <p class="page-sub">Stories and things I'm learning about — written by me!</p>
+
+  <div class="article-list">
+    <article class="article-card">
+      <span class="article-tag">✎ Personal</span>
+      <h3>About Me</h3>
+      <p class="article-excerpt">Coming soon — I'm working on this one! Check back to read all about me, my hobbies, and what I love learning.</p>
+      <span class="article-status">Draft — not published yet</span>
+    </article>
+  </div>
+</div>
+
+<div id="testsPanel" class="top-panel">
   <nav class="site">
     <a class="nav-btn active" data-view="home">How it works</a>
     <a class="nav-btn" data-view="math">Math</a>
     <a class="nav-btn" data-view="geography">Geography</a>
     <a class="nav-btn" data-view="gk">General Knowledge</a>
   </nav>
-</header>
 
 <main>
 
@@ -409,6 +561,13 @@
         <button class="primary" id="geoNext" style="display:none;">Next Question →</button>
       </div>
     </div>
+    <div class="results-widget">
+      <div class="results-tabs">
+        <button class="results-tab active" data-widget="geo" data-tab="board">🏆 Scoreboard</button>
+        <button class="results-tab" data-widget="geo" data-tab="history">📜 My Trials</button>
+      </div>
+      <div class="results-body" id="geoResultsBody"><p class="results-empty">Loading…</p></div>
+    </div>
   </section>
 
   <!-- GK -->
@@ -427,11 +586,47 @@
         <button class="primary" id="gkNext" style="display:none;">Next Question →</button>
       </div>
     </div>
+    <div class="results-widget">
+      <div class="results-tabs">
+        <button class="results-tab active" data-widget="gk" data-tab="board">🏆 Scoreboard</button>
+        <button class="results-tab" data-widget="gk" data-tab="history">📜 My Trials</button>
+      </div>
+      <div class="results-body" id="gkResultsBody"><p class="results-empty">Loading…</p></div>
+    </div>
   </section>
 
 </main>
+</div>
+
+<div class="sheet-modal" id="sheetModal" hidden>
+  <div class="sheet-backdrop" id="sheetBackdrop"></div>
+  <div class="sheet-paper" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <button class="sheet-close" id="sheetClose" aria-label="Close">✕</button>
+    <div class="sheet-stamp" id="sheetStamp">–</div>
+    <div class="sheet-header">
+      <h3 id="sheetTitle">Quiz Answer Sheet</h3>
+      <div class="sheet-meta">
+        <span>Name: <b id="sheetName">–</b></span>
+        <span>Date: <b id="sheetDate">–</b></span>
+      </div>
+      <div class="sheet-rule"></div>
+    </div>
+    <ol class="sheet-questions" id="sheetQuestions"></ol>
+  </div>
+</div>
 
 <script>
+// ---------- Top-level tabs ----------
+const topTabs = document.querySelectorAll('.top-tab');
+const topPanels = document.querySelectorAll('.top-panel');
+topTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    topTabs.forEach(t => t.classList.toggle('active', t === tab));
+    topPanels.forEach(p => p.classList.toggle('active', p.id === tab.dataset.toptab + 'Panel'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
 // ---------- Navigation ----------
 const views = document.querySelectorAll('.view');
 const navBtns = document.querySelectorAll('.nav-btn');
@@ -463,6 +658,217 @@ mathBestEl.textContent = mathBest;
 let currentAnswer = null;
 
 function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+// ---------- Score sync (login) ----------
+const LA_SITE = 'priya';
+const LA_API_BASE = /^(localhost|127\.0\.0\.1)$/.test(location.hostname)
+  ? 'http://localhost:3000'
+  : 'https://api.dineshram.in';
+const LA_TOKEN_KEY = 'la_token_' + LA_SITE;
+const LA_NAME_KEY = 'la_name_' + LA_SITE;
+let laToken = localStorage.getItem(LA_TOKEN_KEY);
+
+const syncBar = document.getElementById('syncBar');
+const syncStatusEl = document.getElementById('syncStatus');
+const syncForm = document.getElementById('syncForm');
+const syncNameInput = document.getElementById('syncName');
+const syncPinInput = document.getElementById('syncPin');
+const syncLogoutBtn = document.getElementById('syncLogout');
+
+const savedName = localStorage.getItem(LA_NAME_KEY);
+if (savedName) syncNameInput.value = savedName;
+
+let laDisplayName = null;
+function setSyncLoggedIn(isLoggedIn, displayName) {
+  laDisplayName = isLoggedIn ? displayName : null;
+  syncForm.style.display = isLoggedIn ? 'none' : 'flex';
+  syncLogoutBtn.style.display = isLoggedIn ? 'inline-block' : 'none';
+  syncStatusEl.textContent = isLoggedIn
+    ? `Logged in as ${displayName} — scores sync across devices ✓`
+    : 'Playing on this device only.';
+}
+
+async function laPushScore(key, value) {
+  if (!laToken) return;
+  try {
+    await fetch(`${LA_API_BASE}/api/scores`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${laToken}` },
+      body: JSON.stringify({ key, value }),
+    });
+  } catch {}
+}
+
+async function laRecordAttempt(game, score, total, details) {
+  if (!laToken) return;
+  try {
+    await fetch(`${LA_API_BASE}/api/attempts`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${laToken}` },
+      body: JSON.stringify({ game, score, total, details }),
+    });
+  } catch {}
+  resultsWidgets[game] && resultsWidgets[game].refresh();
+}
+
+// ---------- Scoreboard / Past Trials widgets ----------
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+const resultsWidgets = {};
+
+// ---------- Answer sheet modal ----------
+const sheetModal = document.getElementById('sheetModal');
+const sheetStampEl = document.getElementById('sheetStamp');
+const sheetNameEl = document.getElementById('sheetName');
+const sheetDateEl = document.getElementById('sheetDate');
+const sheetQuestionsEl = document.getElementById('sheetQuestions');
+
+function openSheetModal(name, dateStr, score, total, details) {
+  sheetStampEl.textContent = `${score}/${total}`;
+  sheetNameEl.textContent = name;
+  sheetDateEl.textContent = dateStr;
+  sheetQuestionsEl.innerHTML = details.length
+    ? details.map((q, i) => `
+        <li>
+          <div class="sheet-q-line"><span class="sheet-q-num">${i + 1}.</span>${escapeHtml(q.q)}</div>
+          <div class="sheet-a-line">
+            <span class="sheet-mark ${q.isCorrect ? 'ok' : 'bad'}">${q.isCorrect ? '✓' : '✗'}</span>
+            <span class="sheet-answer-text${q.isCorrect ? '' : ' struck'}">${escapeHtml(q.chosen)}</span>
+          </div>
+          ${q.isCorrect ? '' : `<div class="sheet-correction">✓ ${escapeHtml(q.correct)}</div>`}
+        </li>`).join('')
+    : '<p class="results-empty">No saved answers for this trial.</p>';
+  sheetModal.hidden = false;
+}
+
+function closeSheetModal() { sheetModal.hidden = true; }
+document.getElementById('sheetClose').addEventListener('click', closeSheetModal);
+document.getElementById('sheetBackdrop').addEventListener('click', closeSheetModal);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheetModal(); });
+
+function initResultsWidget(game, bodyElId, tabSelector) {
+  const bodyEl = document.getElementById(bodyElId);
+  const tabs = document.querySelectorAll(tabSelector);
+
+  async function showBoard() {
+    bodyEl.innerHTML = '<p class="results-empty">Loading…</p>';
+    try {
+      const res = await fetch(`${LA_API_BASE}/api/leaderboard?site=${LA_SITE}&game=${game}`);
+      const { leaderboard } = await res.json();
+      if (!leaderboard.length) { bodyEl.innerHTML = '<p class="results-empty">No scores yet — be the first!</p>'; return; }
+      bodyEl.innerHTML = '<ol class="board-list">' + leaderboard.map((r, i) =>
+        `<li><span class="rank">#${i + 1}</span><span class="name">${escapeHtml(r.displayName)}</span><span class="score">${r.best}</span></li>`
+      ).join('') + '</ol>';
+    } catch {
+      bodyEl.innerHTML = '<p class="results-empty">Couldn\'t load the scoreboard.</p>';
+    }
+  }
+
+  async function showHistory() {
+    if (!laToken) { bodyEl.innerHTML = '<p class="results-empty">Login above to see your past trials.</p>'; return; }
+    bodyEl.innerHTML = '<p class="results-empty">Loading…</p>';
+    try {
+      const res = await fetch(`${LA_API_BASE}/api/attempts?game=${game}`, { headers: { Authorization: `Bearer ${laToken}` } });
+      const { attempts } = await res.json();
+      if (!attempts.length) { bodyEl.innerHTML = '<p class="results-empty">No trials yet — play a round!</p>'; return; }
+      bodyEl.innerHTML = '<ol class="board-list trial-list">' + attempts.map((a, i) => {
+        const d = new Date(a.at);
+        const when = d.toLocaleDateString([], { month: 'short', day: 'numeric' }) + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        return `<li class="trial-row" data-idx="${i}"><span class="name">${when}</span><span class="score">${a.score}/${a.total}</span><span class="chevron">📄</span></li>`;
+      }).join('') + '</ol>';
+
+      bodyEl.querySelectorAll('.trial-row').forEach(row => {
+        row.addEventListener('click', () => {
+          const a = attempts[row.dataset.idx];
+          const d = new Date(a.at);
+          const when = d.toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' }) + ', ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          openSheetModal(laDisplayName || 'You', when, a.score, a.total, a.details || []);
+        });
+      });
+    } catch {
+      bodyEl.innerHTML = '<p class="results-empty">Couldn\'t load your trials.</p>';
+    }
+  }
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (btn.dataset.tab === 'board') showBoard(); else showHistory();
+    });
+  });
+
+  showBoard();
+  resultsWidgets[game] = {
+    refresh: () => {
+      const activeTab = [...tabs].find(b => b.classList.contains('active'));
+      if (!activeTab || activeTab.dataset.tab === 'board') showBoard(); else showHistory();
+    },
+  };
+}
+
+async function laApplyServerScores() {
+  try {
+    const res = await fetch(`${LA_API_BASE}/api/scores`, { headers: { Authorization: `Bearer ${laToken}` } });
+    if (!res.ok) { laToken = null; localStorage.removeItem(LA_TOKEN_KEY); setSyncLoggedIn(false); return; }
+    const { scores, displayName } = await res.json();
+
+    const mathServerVal = scores.math_best || 0;
+    const mathLocalVal = Number(localStorage.getItem('rp_math_best') || 0);
+    const mathMerged = Math.max(mathServerVal, mathLocalVal);
+    localStorage.setItem('rp_math_best', mathMerged);
+    mathBest = mathMerged;
+    mathBestEl.textContent = mathBest;
+    if (mathMerged > mathServerVal) laPushScore('math_best', mathMerged);
+
+    if (scores.geo_best) geoQuiz.setBest(scores.geo_best);
+    if (scores.gk_best) gkQuiz.setBest(scores.gk_best);
+
+    setSyncLoggedIn(true, displayName);
+    resultsWidgets.geo && resultsWidgets.geo.refresh();
+    resultsWidgets.gk && resultsWidgets.gk.refresh();
+  } catch {
+    setSyncLoggedIn(false);
+  }
+}
+
+syncForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = syncNameInput.value.trim();
+  const pin = syncPinInput.value.trim();
+  const oldError = syncBar.querySelector('.sync-error');
+  if (oldError) oldError.remove();
+  if (!name || !/^\d{4}$/.test(pin)) return;
+  try {
+    const res = await fetch(`${LA_API_BASE}/api/login`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ site: LA_SITE, username: name, pin }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Login failed');
+    laToken = data.token;
+    localStorage.setItem(LA_TOKEN_KEY, laToken);
+    localStorage.setItem(LA_NAME_KEY, name);
+    syncPinInput.value = '';
+    await laApplyServerScores();
+  } catch (err) {
+    const msg = document.createElement('div');
+    msg.className = 'sync-error';
+    msg.textContent = err.message;
+    syncBar.appendChild(msg);
+  }
+});
+
+syncLogoutBtn.addEventListener('click', () => {
+  laToken = null;
+  localStorage.removeItem(LA_TOKEN_KEY);
+  setSyncLoggedIn(false);
+  Object.values(resultsWidgets).forEach(w => w.refresh());
+});
+
+setSyncLoggedIn(false);
 
 // ---------- Confetti & streak toast ----------
 function confettiBurst(x, y) {
@@ -538,6 +944,7 @@ function checkAnswer() {
     if (mathStreak > mathBest) {
       mathBest = mathStreak;
       localStorage.setItem('rp_math_best', mathBest);
+      laPushScore('math_best', mathBest);
     }
     mathFeedback.textContent = 'Correct! 🎉';
     mathFeedback.className = 'feedback correct';
@@ -574,7 +981,7 @@ function shuffle(arr) {
 
 // ---------- Generic quiz engine (used by Geography & General Knowledge) ----------
 function makeQuiz(cfg) {
-  let questions = [], index = 0, score = 0, started = false;
+  let questions = [], index = 0, score = 0, started = false, details = [];
   let best = Number(localStorage.getItem(cfg.storeKey) || 0);
   cfg.bestEl.textContent = best;
   cfg.totalEl.textContent = cfg.len;
@@ -584,6 +991,7 @@ function makeQuiz(cfg) {
     questions = shuffle(cfg.bank).slice(0, cfg.len);
     index = 0;
     score = 0;
+    details = [];
     cfg.scoreEl.textContent = score;
     render();
   }
@@ -601,6 +1009,7 @@ function makeQuiz(cfg) {
         localStorage.setItem(cfg.storeKey, best);
         cfg.bestEl.textContent = best;
       }
+      if (cfg.game) laRecordAttempt(cfg.game, score, questions.length, details);
       cfg.nextBtn.textContent = 'Play Again';
       cfg.nextBtn.style.display = 'inline-block';
       cfg.nextBtn.onclick = start;
@@ -629,7 +1038,9 @@ function makeQuiz(cfg) {
       if (i === item.a) b.classList.add('correct');
       else if (i === choice) b.classList.add('wrong');
     });
-    if (choice === item.a) {
+    const isCorrect = choice === item.a;
+    details.push({ q: item.q, chosen: item.options[choice], correct: item.options[item.a], isCorrect });
+    if (isCorrect) {
       score++;
       const rect = btns[choice].getBoundingClientRect();
       confettiBurst(rect.left + rect.width / 2, rect.top);
@@ -640,7 +1051,14 @@ function makeQuiz(cfg) {
     cfg.nextBtn.onclick = () => { index++; render(); };
   }
 
-  return { start, isStarted: () => started };
+  function setBest(v) {
+    if (v <= best) return;
+    best = v;
+    localStorage.setItem(cfg.storeKey, best);
+    cfg.bestEl.textContent = best;
+  }
+
+  return { start, isStarted: () => started, setBest };
 }
 
 // ---------- Geography ----------
@@ -665,7 +1083,7 @@ const geoBank = [
   { topic: 'Geography', q: 'Which imaginary line divides the Earth into Northern and Southern hemispheres?', options: ['Prime Meridian', 'Tropic of Cancer', 'The Equator', 'Arctic Circle'], a: 2 },
 ];
 const geoQuiz = makeQuiz({
-  bank: geoBank, len: 10, storeKey: 'rp_geo_best',
+  bank: geoBank, len: 5, storeKey: 'rp_geo_best', game: 'geo',
   bestEl: document.getElementById('geoBest'), totalEl: document.getElementById('geoTotal'),
   scoreEl: document.getElementById('geoScore'), numEl: document.getElementById('geoNum'),
   topicEl: document.getElementById('geoTopic'), questionEl: document.getElementById('geoQuestion'),
@@ -703,7 +1121,7 @@ const gkBank = [
   { topic: 'General', q: 'Which is the closest star to Earth?', options: ['Sirius', 'Proxima Centauri', 'The Sun', 'Polaris'], a: 2 },
 ];
 const gkQuiz = makeQuiz({
-  bank: gkBank, len: 10, storeKey: 'rp_gk_best',
+  bank: gkBank, len: 5, storeKey: 'rp_gk_best', game: 'gk',
   bestEl: document.getElementById('gkBest'), totalEl: document.getElementById('gkTotal'),
   scoreEl: document.getElementById('gkScore'), numEl: document.getElementById('gkNum'),
   topicEl: document.getElementById('gkTopic'), questionEl: document.getElementById('gkQuestion'),
@@ -711,6 +1129,11 @@ const gkQuiz = makeQuiz({
 });
 let gkStarted = false;
 function startGK() { gkStarted = true; gkQuiz.start(); }
+
+initResultsWidget('geo', 'geoResultsBody', '.results-tab[data-widget="geo"]');
+initResultsWidget('gk', 'gkResultsBody', '.results-tab[data-widget="gk"]');
+
+if (laToken) laApplyServerScores();
 </script>
 </body>
 </html>
