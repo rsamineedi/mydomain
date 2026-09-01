@@ -66,7 +66,17 @@
     padding: 2.5rem 2rem 1.5rem;
     max-width: 1080px;
     margin: 0 auto;
+    position: relative;
   }
+  .header-login-btn {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    border: 1px solid rgba(34,48,44,0.18); background: var(--panel); color: var(--muted);
+    font-family: "Fraunces", serif; font-weight: 600; font-size: 0.85rem;
+    padding: 0.4rem 0.9rem; border-radius: 999px; cursor: pointer; transition: all 0.15s ease;
+  }
+  .header-login-btn.logged-in { color: var(--primary); border-color: var(--primary); }
+  .header-login-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  @media (max-width: 480px) { .header-login-btn { position: static; margin-top: 0.5rem; } }
   .site-title {
     display: flex; align-items: center; gap: 0.8rem;
     font-size: clamp(1.8rem, 5vw, 2.6rem);
@@ -273,12 +283,6 @@
   }
 
   /* Header auth badge */
-  .header-auth {
-    display: inline-block; margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted);
-    background: var(--panel); border: 1px solid rgba(34,48,44,0.12);
-    padding: 0.25rem 0.8rem; border-radius: 999px;
-  }
-
   /* Login panel */
   .login-card {
     max-width: 360px; margin: 1.8rem auto 0; background: var(--panel);
@@ -389,6 +393,7 @@
 </div>
 
 <header class="site">
+  <button class="header-login-btn" id="headerAuthStatus" data-toptab="login">Login</button>
   <div class="site-title">
     <span class="sparkle">✦</span>
     <h1>Priya's <span class="accent">Math Lab</span></h1>
@@ -400,14 +405,12 @@
     <span class="avatar-ring">
       <img class="mark" src="priya-avatar.png" alt="Priya">
     </span>
-    <span class="header-auth" id="headerAuthStatus">Not logged in</span>
   </div>
   <nav class="top-tabs">
     <button class="top-tab active" data-toptab="about">About Me</button>
     <button class="top-tab" data-toptab="posts">Posts</button>
     <button class="top-tab" data-toptab="games">Games</button>
     <button class="top-tab" data-toptab="quiz">Quiz</button>
-    <button class="top-tab" data-toptab="login">Login</button>
   </nav>
 </header>
 
@@ -562,13 +565,15 @@
 // ---------- Top-level tabs ----------
 const topTabs = document.querySelectorAll('.top-tab');
 const topPanels = document.querySelectorAll('.top-panel');
-topTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    topTabs.forEach(t => t.classList.toggle('active', t === tab));
-    topPanels.forEach(p => p.classList.toggle('active', p.id === tab.dataset.toptab + 'Panel'));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-});
+const headerLoginBtn = document.getElementById('headerAuthStatus');
+const allTabButtons = [...topTabs, headerLoginBtn];
+
+function activateTopTab(tab) {
+  allTabButtons.forEach(t => t.classList.toggle('active', t === tab));
+  topPanels.forEach(p => p.classList.toggle('active', p.id === tab.dataset.toptab + 'Panel'));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+allTabButtons.forEach(tab => tab.addEventListener('click', () => activateTopTab(tab)));
 
 // ---------- Navigation ----------
 const views = document.querySelectorAll('.view');
@@ -627,7 +632,8 @@ function setSyncLoggedIn(isLoggedIn, displayName) {
   laDisplayName = isLoggedIn ? displayName : null;
   syncForm.style.display = isLoggedIn ? 'none' : 'flex';
   syncLogoutBtn.style.display = isLoggedIn ? 'inline-block' : 'none';
-  headerAuthEl.textContent = isLoggedIn ? `👤 ${displayName}` : 'Not logged in';
+  headerAuthEl.textContent = isLoggedIn ? `👤 ${displayName}` : 'Login';
+  headerAuthEl.classList.toggle('logged-in', isLoggedIn);
   syncStatusEl.textContent = isLoggedIn
     ? `Logged in as ${displayName} — scores sync across devices ✓`
     : 'Playing on this device only.';
