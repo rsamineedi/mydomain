@@ -91,11 +91,11 @@
   nav.site { justify-content: center; margin: 0 auto 2rem; max-width: 1080px; padding-top: 1.5rem; }
 
   /* Top-level tabs */
-  .top-tabs { display: flex; justify-content: center; gap: 0.7rem; margin-top: 1.4rem; position: relative; z-index: 1; }
+  .top-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin-top: 1.4rem; position: relative; z-index: 1; }
   .top-tab {
     border: 1px solid rgba(34,48,44,0.15); background: var(--panel); color: var(--muted);
-    font-family: "Fraunces", serif; font-weight: 600; font-size: 1.02rem;
-    padding: 0.55rem 1.5rem; border-radius: 999px; cursor: pointer; transition: all 0.15s ease;
+    font-family: "Fraunces", serif; font-weight: 600; font-size: 0.92rem;
+    padding: 0.5rem 1.1rem; border-radius: 999px; cursor: pointer; transition: all 0.15s ease;
   }
   .top-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
   .top-panel { display: none; }
@@ -272,27 +272,33 @@
     100% { transform: var(--end, translate(0, -120px)) rotate(360deg) scale(1); opacity: 0; }
   }
 
-  /* Sync / login bar */
-  .sync-bar {
-    display: flex; align-items: center; justify-content: center; gap: 0.8rem; flex-wrap: wrap;
-    max-width: 700px; margin: 1.2rem auto 0; padding: 0.6rem 1rem;
-    background: var(--panel); border: 1px solid rgba(34,48,44,0.12); border-radius: 999px;
-    font-size: 0.85rem; color: var(--muted); position: relative; z-index: 1;
+  /* Header auth badge */
+  .header-auth {
+    display: inline-block; margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted);
+    background: var(--panel); border: 1px solid rgba(34,48,44,0.12);
+    padding: 0.25rem 0.8rem; border-radius: 999px;
   }
-  .sync-form { display: flex; gap: 0.5rem; }
+
+  /* Login panel */
+  .login-card {
+    max-width: 360px; margin: 1.8rem auto 0; background: var(--panel);
+    border: 1px solid rgba(34,48,44,0.12); border-radius: 18px; padding: 1.6rem;
+    display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+    box-shadow: 0 10px 28px rgba(34,48,44,0.06);
+  }
+  .sync-form { display: flex; flex-direction: column; gap: 0.7rem; width: 100%; }
   .sync-form input {
-    width: 6.5rem; padding: 0.35rem 0.6rem; border-radius: 999px;
+    width: 100%; padding: 0.6rem 0.8rem; border-radius: 10px;
     border: 1px solid rgba(34,48,44,0.2); background: var(--cream); color: var(--ink);
-    font-family: inherit; font-size: 0.85rem; text-align: center;
+    font-family: inherit; font-size: 0.95rem; text-align: left;
   }
-  .sync-form input#syncName { width: 8rem; text-align: left; }
   .sync-btn {
-    border: none; padding: 0.35rem 0.9rem; border-radius: 999px; font-weight: 700;
-    font-size: 0.85rem; cursor: pointer; background: var(--primary); color: #fff;
-    font-family: inherit;
+    border: none; padding: 0.6rem 1rem; border-radius: 999px; font-weight: 700;
+    font-size: 0.95rem; cursor: pointer; background: var(--primary); color: #fff;
+    font-family: inherit; width: 100%;
   }
   .sync-btn.ghost { background: none; border: 1px solid rgba(34,48,44,0.25); color: var(--muted); }
-  .sync-error { color: var(--red); font-size: 0.8rem; width: 100%; text-align: center; }
+  .sync-error { color: var(--red); font-size: 0.85rem; width: 100%; text-align: center; }
 
   /* Scoreboard / Past Trials */
   .results-widget { max-width: 640px; margin: 1.25rem auto 0; }
@@ -394,127 +400,41 @@
     <span class="avatar-ring">
       <img class="mark" src="priya-avatar.png" alt="Priya">
     </span>
+    <span class="header-auth" id="headerAuthStatus">Not logged in</span>
   </div>
   <nav class="top-tabs">
-    <button class="top-tab active" data-toptab="articles">Articles</button>
-    <button class="top-tab" data-toptab="tests">Tests</button>
+    <button class="top-tab active" data-toptab="about">About Me</button>
+    <button class="top-tab" data-toptab="posts">Posts</button>
+    <button class="top-tab" data-toptab="games">Games</button>
+    <button class="top-tab" data-toptab="quiz">Quiz</button>
+    <button class="top-tab" data-toptab="login">Login</button>
   </nav>
 </header>
 
-<div class="sync-bar" id="syncBar">
-  <span class="sync-status" id="syncStatus">Playing on this device only.</span>
-  <form id="syncForm" class="sync-form">
-    <input type="text" id="syncName" placeholder="Your name" maxlength="24" autocomplete="off">
-    <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="syncPin" placeholder="4-digit PIN" autocomplete="off">
-    <button type="submit" class="sync-btn">Login</button>
-  </form>
-  <button id="syncLogout" class="sync-btn ghost" style="display:none;">Logout</button>
-</div>
-
-<div id="articlesPanel" class="top-panel active">
-  <div class="eyebrow"><span class="sparkle">✦</span> Blog <span class="sparkle">✦</span></div>
-  <h2 class="page-title">Articles</h2>
-  <p class="page-sub">Stories and things I'm learning about — written by me!</p>
-
+<div id="aboutPanel" class="top-panel active">
+  <div class="eyebrow"><span class="sparkle">✦</span> Personal <span class="sparkle">✦</span></div>
+  <h2 class="page-title">About Me</h2>
   <div class="article-list">
     <article class="article-card">
-      <span class="article-tag">✎ Personal</span>
-      <h3>About Me</h3>
+      <span class="article-tag">✎ Draft</span>
       <p class="article-excerpt">Coming soon — I'm working on this one! Check back to read all about me, my hobbies, and what I love learning.</p>
       <span class="article-status">Draft — not published yet</span>
     </article>
   </div>
 </div>
 
-<div id="testsPanel" class="top-panel">
-  <nav class="site">
-    <a class="nav-btn active" data-view="home">How it works</a>
-    <a class="nav-btn" data-view="math">Math</a>
-    <a class="nav-btn" data-view="geography">Geography</a>
-    <a class="nav-btn" data-view="gk">General Knowledge</a>
-  </nav>
+<div id="postsPanel" class="top-panel">
+  <div class="eyebrow"><span class="sparkle">✦</span> Blog <span class="sparkle">✦</span></div>
+  <h2 class="page-title">Posts</h2>
+  <p class="page-sub">Stories and things I'm learning about — written by me!</p>
+  <div class="article-list">
+    <p class="results-empty">No posts yet — check back soon!</p>
+  </div>
+</div>
 
+<div id="gamesPanel" class="top-panel">
 <main>
-
-  <!-- HOME -->
-  <section id="home" class="view active">
-    <div class="hero-wrap">
-      <div class="eyebrow"><span class="sparkle">✦</span> Learning Corner <span class="sparkle">✦</span></div>
-      <h1 class="hero-title">Learn, play, and <em>grow</em> — one step at a time.</h1>
-      <p class="hero-sub">Three exciting areas to explore. Everything happens right here in your browser.</p>
-    </div>
-
-    <div class="activities">
-      <div class="activity-card math">
-        <div class="activity-icon-block math">
-          <div class="calc-grid"><span>+</span><span>−</span><span>×</span><span>÷</span></div>
-          <img class="deco-icon" src="assets/triangle.svg" alt="">
-        </div>
-        <div class="activity-content">
-          <h3>Math</h3>
-          <p>Solve problems.<br>Build confidence.<br>Sharpen your skills.</p>
-        </div>
-        <button class="activity-arrow" data-view="math">→</button>
-      </div>
-
-      <div class="activity-card geo">
-        <div class="activity-icon-block geo">
-          <img class="main-icon" src="assets/globe.svg" alt="" style="filter: brightness(0) invert(1);">
-          <img class="deco-icon" src="assets/mountains.svg" alt="">
-        </div>
-        <div class="activity-content">
-          <h3>Geography</h3>
-          <p>Explore places.<br>Understand the world.<br>Discover connections.</p>
-        </div>
-        <button class="activity-arrow" data-view="geography">→</button>
-      </div>
-
-      <div class="activity-card gk">
-        <div class="activity-icon-block gk">
-          <img class="main-icon" src="assets/brain_book.svg" alt="" style="filter: brightness(0) invert(1);">
-          <img class="deco-icon" src="assets/temple.svg" alt="">
-        </div>
-        <div class="activity-content">
-          <h3>General Knowledge</h3>
-          <p>Learn amazing facts.<br>Stay curious.<br>Think beyond.</p>
-        </div>
-        <button class="activity-arrow" data-view="gk">→</button>
-      </div>
-    </div>
-
-    <div class="step-info">
-      <div class="step-text">
-        <span class="step-badge">Step 01</span>
-        <h2>Pick an area</h2>
-        <p>Choose any topic above to begin your learning adventure. Each area has fun activities and challenges for you.</p>
-      </div>
-      <div class="feature-row">
-        <div class="feature">
-          <img src="assets/target.svg" alt="">
-          <h4>Practice</h4>
-          <p>Interactive activities to build strong concepts.</p>
-        </div>
-        <div class="feature">
-          <img src="assets/puzzle.svg" alt="">
-          <h4>Explore</h4>
-          <p>Discover new ideas and real-world examples.</p>
-        </div>
-        <div class="feature">
-          <img src="assets/progress_chart.svg" alt="">
-          <h4>Track</h4>
-          <p>See your progress and celebrate your achievements.</p>
-        </div>
-        <div class="feature">
-          <img src="assets/trophy.svg" alt="">
-          <h4>Achieve</h4>
-          <p>Complete challenges and earn badges along the way.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MATH -->
-  <section id="math" class="view">
+  <section id="math">
     <div class="card">
       <h2>Math Practice</h2>
       <div class="controls">
@@ -544,9 +464,18 @@
       <div class="feedback" id="mathFeedback"></div>
     </div>
   </section>
+</main>
+</div>
+
+<div id="quizPanel" class="top-panel">
+  <nav class="site">
+    <a class="nav-btn active" data-view="geography">Geography</a>
+    <a class="nav-btn" data-view="gk">General Knowledge</a>
+  </nav>
+<main>
 
   <!-- GEOGRAPHY -->
-  <section id="geography" class="view">
+  <section id="geography" class="view active">
     <div class="card">
       <h2>Geography</h2>
       <div class="stats">
@@ -596,6 +525,20 @@
   </section>
 
 </main>
+</div>
+
+<div id="loginPanel" class="top-panel">
+  <div class="eyebrow"><span class="sparkle">✦</span> Account <span class="sparkle">✦</span></div>
+  <h2 class="page-title">Login</h2>
+  <p class="page-sub" id="syncStatus">Playing on this device only.</p>
+  <div class="login-card">
+    <form id="syncForm" class="sync-form">
+      <input type="text" id="syncName" placeholder="Your name" maxlength="24" autocomplete="off">
+      <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="syncPin" placeholder="4-digit PIN" autocomplete="off">
+      <button type="submit" class="sync-btn">Login</button>
+    </form>
+    <button id="syncLogout" class="sync-btn ghost" style="display:none;">Logout</button>
+  </div>
 </div>
 
 <div class="sheet-modal" id="sheetModal" hidden>
@@ -668,12 +611,13 @@ const LA_TOKEN_KEY = 'la_token_' + LA_SITE;
 const LA_NAME_KEY = 'la_name_' + LA_SITE;
 let laToken = localStorage.getItem(LA_TOKEN_KEY);
 
-const syncBar = document.getElementById('syncBar');
+const loginCard = document.querySelector('.login-card');
 const syncStatusEl = document.getElementById('syncStatus');
 const syncForm = document.getElementById('syncForm');
 const syncNameInput = document.getElementById('syncName');
 const syncPinInput = document.getElementById('syncPin');
 const syncLogoutBtn = document.getElementById('syncLogout');
+const headerAuthEl = document.getElementById('headerAuthStatus');
 
 const savedName = localStorage.getItem(LA_NAME_KEY);
 if (savedName) syncNameInput.value = savedName;
@@ -683,6 +627,7 @@ function setSyncLoggedIn(isLoggedIn, displayName) {
   laDisplayName = isLoggedIn ? displayName : null;
   syncForm.style.display = isLoggedIn ? 'none' : 'flex';
   syncLogoutBtn.style.display = isLoggedIn ? 'inline-block' : 'none';
+  headerAuthEl.textContent = isLoggedIn ? `👤 ${displayName}` : 'Not logged in';
   syncStatusEl.textContent = isLoggedIn
     ? `Logged in as ${displayName} — scores sync across devices ✓`
     : 'Playing on this device only.';
@@ -838,7 +783,7 @@ syncForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const name = syncNameInput.value.trim();
   const pin = syncPinInput.value.trim();
-  const oldError = syncBar.querySelector('.sync-error');
+  const oldError = loginCard.querySelector('.sync-error');
   if (oldError) oldError.remove();
   if (!name || !/^\d{4}$/.test(pin)) return;
   try {
@@ -857,7 +802,7 @@ syncForm.addEventListener('submit', async (e) => {
     const msg = document.createElement('div');
     msg.className = 'sync-error';
     msg.textContent = err.message;
-    syncBar.appendChild(msg);
+    loginCard.appendChild(msg);
   }
 });
 
@@ -1133,6 +1078,7 @@ function startGK() { gkStarted = true; gkQuiz.start(); }
 initResultsWidget('geo', 'geoResultsBody', '.results-tab[data-widget="geo"]');
 initResultsWidget('gk', 'gkResultsBody', '.results-tab[data-widget="gk"]');
 
+startGeo();
 if (laToken) laApplyServerScores();
 </script>
 </body>
