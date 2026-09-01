@@ -542,6 +542,10 @@
     </form>
     <button id="syncLogout" class="sync-btn ghost" style="display:none;">Logout</button>
   </div>
+  <div class="results-widget" id="pastTestsSection" hidden>
+    <div class="results-tabs"><span class="results-tab active">📜 Past Tests</span></div>
+    <div class="results-body" id="pastTestsBody"><p class="results-empty">Loading…</p></div>
+  </div>
 </div>
 
 <div class="sheet-modal" id="sheetModal" hidden>
@@ -637,6 +641,36 @@ function setSyncLoggedIn(isLoggedIn, displayName) {
   syncStatusEl.textContent = isLoggedIn
     ? `Logged in as ${displayName} — scores sync across devices ✓`
     : 'Playing on this device only.';
+  document.getElementById('pastTestsSection').hidden = !isLoggedIn;
+  if (isLoggedIn) loadPastTests();
+}
+
+const GAME_LABELS = { math: 'Math', geo: 'Geography', gk: 'General Knowledge', science: 'Science' };
+
+async function loadPastTests() {
+  const bodyEl = document.getElementById('pastTestsBody');
+  bodyEl.innerHTML = '<p class="results-empty">Loading…</p>';
+  try {
+    const res = await fetch(`${LA_API_BASE}/api/attempts`, { headers: { Authorization: `Bearer ${laToken}` } });
+    const { attempts } = await res.json();
+    if (!attempts.length) { bodyEl.innerHTML = '<p class="results-empty">No trials yet — play a round!</p>'; return; }
+    bodyEl.innerHTML = '<ol class="board-list trial-list">' + attempts.map((a, i) => {
+      const d = new Date(a.at);
+      const when = d.toLocaleDateString([], { month: 'short', day: 'numeric' }) + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const label = GAME_LABELS[a.game] || a.game;
+      return `<li class="trial-row" data-idx="${i}"><span class="name">${label} — ${when}</span><span class="score">${a.score}/${a.total}</span><span class="chevron">📄</span></li>`;
+    }).join('') + '</ol>';
+    bodyEl.querySelectorAll('.trial-row').forEach(row => {
+      row.addEventListener('click', () => {
+        const a = attempts[row.dataset.idx];
+        const d = new Date(a.at);
+        const when = d.toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' }) + ', ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        openSheetModal(laDisplayName || 'You', `${GAME_LABELS[a.game] || a.game} — ${when}`, a.score, a.total, a.details || []);
+      });
+    });
+  } catch {
+    bodyEl.innerHTML = '<p class="results-empty">Couldn\'t load your past tests.</p>';
+  }
 }
 
 async function laPushScore(key, value) {
